@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="card shad_box">
+        <div class="list-group list-group-flush">
+            {% for stat in status %}
+                {% for vall in valley %}
+                    {% if vall.id == stat.status_valley_id %}
+                        <label class="list-group-item list-group-item-action">
+                            <div class="row">
+                                <div class="col-10">
+                                    <input class="form-check-input me-1 " type="checkbox" value="{{ vall.valley_duet }}"
+                                            id="v_chk{{forloop.counter}}" name="v_chk{{forloop.counter}}"> {{ vall.valley_name }}</input>
+                                </div>
+                                <div class="col-2">
+                                    {% if stat.status_run == False %}
+                                        {% if stat.status_ctrl == False %}
+                                            <span class="badge bg-danger" style="width: 100px;">Остановлена</span>
+                                        {% else %}
+                                            <span class="badge bg-warning text-black-50" style="width: 100px;">Остановлена</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge bg-success" style="width: 100px;">Запущена</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </label>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <button type="button" class="btn btn-primary" id="btn_sel" disabled>Открыть</button>
+    </div>
+
+{% endblock content %}
