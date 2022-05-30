@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
+
     {% for tstr in res %}
         {{ tstr }}<br>
     {% endfor %}
-</body>
-</html>
+
+    {% for curBtn in btnLst %}
+        <button type="button" class="btn btn-primary" id="btn{{ curBtn.rele[0] }}">{{ curBtn.title }}</button>
+    {% endfor %}
+
+{% endblock content %}

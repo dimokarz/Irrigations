@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Valley, Status
+from .control import ControlBtn
 
 
 def index(request):
@@ -30,5 +31,6 @@ def test(request):
         valName = valleyLst.filter(id=valInd)
         row['valley_name'] = valName[0]['valley_name']
         t_lst.append(row)
+    btnLst = ControlBtn().rusButtons
 
-    return render(request, 'test.html', {'res': t_lst})
+    return render(request, 'test.html', {'res': t_lst, 'btnLst': btnLst})
