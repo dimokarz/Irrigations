@@ -3,11 +3,12 @@ function btn_sel() {
     let valley = []
     let inputElems = document.getElementsByTagName("input"),
     count = 0;
+    inuptId = []
     for (let i=0; i<inputElems.length; i++) {
         if (inputElems[i].type == "checkbox" && inputElems[i].checked == true) {
             count++;
             duet.push(inputElems[i].value)
-            valley.push(i + 1)
+            valley.push(inputElems[i].id)
         }
     }
     switch (count) {

@@ -2,12 +2,12 @@
 
 {% block content %}
 
-    {% for tstr in res %}
-        {{ tstr }}<br>
-    {% endfor %}
-
     {% for curBtn in btnLst %}
         <button type="button" class="btn btn-primary" id="btn_{{ curBtn.rele }}">{{ curBtn.title }}</button>
+    {% endfor %}
+
+    {% for rowVal in valleyLst %}
+        {{ rowVal }}
     {% endfor %}
 
 {% endblock content %}

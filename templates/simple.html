@@ -2,11 +2,11 @@
 
 {% block content %}
     <div class="row justify-content-md-center">
-        {% for valley in valLst %}
+        {% for valley in valleyLst %}
             {% if valley != None %}
                 <div class="col-6">
-                    <div class="card shad_box" id="val{{ valley }}">
-                        <h5 class="card-header">Полив {{ valley }}</h5>
+                    <div class="card shad_box" id="val">
+                        <h5 class="card-header">{{ valley.valley_addr }}</h5>
                         <div class="card-body">
                             <h5 class="card-title">Особое обращение с заголовком</h5>
                             <p class="card-text">С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту.</p>
@@ -15,6 +15,7 @@
                 </div>
             {% endif %}
         {% endfor %}
+
     </div>
 
 {% endblock content %}
