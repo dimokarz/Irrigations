@@ -1,21 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
+
     <div class="row justify-content-md-center">
         {% for valley in valleyLst %}
             {% if valley != None %}
                 <div class="col-6">
                     <div class="card shad_box" id="val">
-                        <h5 class="card-header">{{ valley.status_valley }}{{ valley.status_run }}</h5>
+                        <div class="card-header" style="background: #e6e6e6;">
+                            <div class="row">
+                                <div class="col-6"><h5>{{ valley.status_valley }}</h5></div>
+                                    <div class="col">
+                                    {% if valley.status_run == True %}
+                                        <span class="badge bg-success" style="width: 100px;">Управление</span>
+                                    {% else %}
+                                        <span class="badge bg-danger" style="width: 100px;">Управление</span>
+                                    {% endif %}
+                                    </div>
+                                <div class="col">
+                                    {% if valley.status_fail == True %}
+                                        <span class="badge bg-success" style="width: 100px;">Авария</span>
+                                    {% else %}
+                                        <span class="badge bg-danger" style="width: 100px;">Авария</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">Особое обращение с заголовком</h5>
-                            <p class="card-text">С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту.</p>
+                            <div class="row">
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class = "col-6">
+                                        Движение
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">123</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             {% endif %}
         {% endfor %}
-
     </div>
 
 {% endblock content %}
