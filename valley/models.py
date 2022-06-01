@@ -46,6 +46,8 @@ class Status(models.Model):
     status_dir = models.CharField(max_length=1, choices=DIRECTIONS, default='N', verbose_name='Направление')
     status_wat = models.BooleanField(default=False, verbose_name='Вода')
     status_sis = models.BooleanField(default=False, verbose_name='АвтоСтоп')
+    status_valve1 = models.BooleanField(default=False, verbose_name='Задвижка 1')
+    status_valve2 = models.BooleanField(default=False, verbose_name='Задвижка 2')
     status_valley = models.OneToOneField(Valley, on_delete=models.CASCADE, primary_key=True,
                                          related_name='status', verbose_name='Система')
 
