@@ -28,14 +28,64 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                            <div class="col-4">
-                                <div class="row">
-                                    <div class = "col-6">
-                                        Движение
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-6"><strong>Направление</strong></div>
+                                        <div class="col-6">
+                                            {% if valley.status_run == False %}
+                                                <span class="badge bg-danger" style="width: 60px;">Выкл</span>
+                                            {% else %}
+                                                {% if valley.status_dir == "F" %}
+                                                    <span class="badge bg-success" style="width: 60px;">Вперёд</span>
+                                                {% elif valley.status_dir == "R" %}
+                                                    <span class="badge bg-success" style="width: 60px;">Назад</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
                                     </div>
+                                    <div class="row" style="margin-top: 5px;">
+                                        <div class="col-6">Вода</div>
+                                        <div class="col-6">
+                                            {% if valley.status_run == False %}
+                                                <span class="badge bg-danger" style="width: 60px;">Выкл</span>
+                                            {% else %}
+                                                {% if valley.status_wat == True %}
+                                                    <span class="badge bg-success" style="width: 60px;">Вкл</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger" style="width: 60px;">Выкл</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">Автостоп</div>
+                                        <div class="col-6">
+                                            {% if valley.status_run == False %}
+                                                <span class="badge bg-danger" style="width: 60px;">Выкл</span>
+                                            {% else %}
+                                                {% if valley.status_sis == True %}
+                                                    <span class="badge bg-success" style="width: 60px;">Вкл</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger" style="width: 60px;">Выкл</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span class="badge bg-danger" style="width: 100px;">Задвижка 1</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="badge bg-danger" style="width: 100px;">Задвижка 2</span>
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
-                            </div>
-                            <div class="col">123</div>
+                                <div class="col-6">
+                                    123 123
+
+                                </div>
                             </div>
                         </div>
                     </div>
