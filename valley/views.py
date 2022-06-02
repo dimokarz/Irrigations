@@ -13,6 +13,7 @@ def index(request):
 
 
 def simple(request):
+    btnLst = ControlBtn().rusButtons
     first = int(request.GET.get('first')[5:])
     if request.GET.get('second') is not None:
         second = request.GET.get('second')[5:]
@@ -22,7 +23,7 @@ def simple(request):
     header = 'Управление'
     title = ' - Управление'
 
-    return render(request, 'simple.html', {'header': header, 'title': title, 'valleyLst': valleyLst})
+    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst})
 
 
 def test(request):
