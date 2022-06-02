@@ -92,10 +92,11 @@
                                 </div>
                                 <div class="col-6">
                                     {% for currBtn in btnLst %}
-                                        <button type="button" class="btn btn-lg btn_fix btn-outline-secondary"
-                                                id="btn_{{ currBtn.rele }}">{{ currBtn.title }}</button>
+                                        <button type="button" class="btn btn-lg {{ currBtn.class }}"
+                                                {% if currBtn.rele == "7-9" or currBtn.rele == "8-9" %}style="margin-bottom: 10px;" {% endif %}
+                                                    id="btn_{{ currBtn.rele }}">{{ currBtn.title }}</button>
                                                 {% if currBtn.br == "1" %}
-                                                    <br><br>
+                                                    <br>
                                                 {% endif %}
                                     {% endfor %}
                                 </div>

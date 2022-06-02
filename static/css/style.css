@@ -5,3 +5,30 @@
 .modal-header{
     height: 40px;
 }
+
+.btn_fix {
+    width: 115px;
+    height: 60px;
+    font-size: 1.2em;;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 2px;
+}
+
+.btn_start {
+    width: 115px;
+    height: 60px;
+    font-size: 1.2em;;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 2px;
+}
+
+.btn_stop {
+    width: 115px;
+    height: 60px;
+    font-size: 1.2em;;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 2px;
+}
