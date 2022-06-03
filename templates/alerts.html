@@ -1,4 +1,4 @@
-<!-- Simple -->
+<!-- Сообщения об ошибках -->
 <div class="modal fade" id="modAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -16,4 +16,19 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Всплывашки -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header text-white" id="tHead">
+      <strong class="me-auto">Valley PRO2</strong>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+    </div>
+    <div class="toast-body"">
+      <p style="font-size: 1.2em" id="tMess1"></p>
+      <p style="font-size: 1.2em" id="tMess2"></p>
+    </div>
+  </div>
 </div>

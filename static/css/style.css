@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Digital-7';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Digital-7'), url('/static/fonts/Digital-7.ttf') format('opentype');
+}
 .shad_box:hover {
     box-shadow: 0 1px 20px 0 rgba(43, 43, 43, 0.7);
 }
@@ -7,7 +13,7 @@
 }
 
 .btn_fix {
-    width: 115px;
+    width: 140px;
     height: 60px;
     font-size: 1.2em;;
     font-weight: bold;
@@ -15,20 +21,26 @@
     padding: 2px;
 }
 
-.btn_start {
-    width: 115px;
-    height: 60px;
-    font-size: 1.2em;;
-    font-weight: bold;
-    margin-bottom: 5px;
-    padding: 2px;
+.btn_round {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.7em !important;
+    border-radius:40px;
+    font-weight: bolder;
+    padding-top: 3px;
+    padding-left: 10px;
 }
 
-.btn_stop {
-    width: 115px;
-    height: 60px;
-    font-size: 1.2em;;
-    font-weight: bold;
-    margin-bottom: 5px;
-    padding: 2px;
+.btn_squar {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.5em !important;
+    font-weight: bolder;
+    padding-top: 5px;
+}
+
+.led {
+    font-family: 'Digital-7';
+    font-size: 1.9em;
+    margin-top: -16px;
 }

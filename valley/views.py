@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Valley, Status
-from .control import ControlBtn
+from .control import ControlSimple
 
 
 def index(request):
@@ -13,14 +12,13 @@ def index(request):
 
 
 def simple(request):
-    btnLst = ControlBtn().rusButtons
+    btnLst = ControlSimple().rusButtons
     first = int(request.GET.get('first')[5:])
     if request.GET.get('second') is not None:
         second = request.GET.get('second')[5:]
         valleyLst = Status.objects.all().in_bulk([first, second]).values()
     else:
         valleyLst = Status.objects.all().in_bulk([first]).values()
-    header = 'Управление'
     title = ' - Управление'
 
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst})
@@ -29,6 +27,6 @@ def simple(request):
 def test(request):
     valleyLst = Valley.objects.all().values()
     statusLst = Status.objects.all().values()
-    btnLst = ControlBtn().rusButtons
+    btnLst = ControlSimple().rusButtons
 
     return render(request, 'test.html', {'btnLst': btnLst, 'valleyLst': valleyLst, 'statusLst': statusLst})

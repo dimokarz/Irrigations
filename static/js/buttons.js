@@ -1,3 +1,4 @@
+// Проверка выбранных систем
 function btn_sel() {
     let duet = []
     let valley = []
@@ -31,14 +32,56 @@ function btn_sel() {
     }
 }
 
-$('.btn').on("click", function(e) {
-    switch (e.target.id) {
-        case 'btn_sel' :
-            btn_sel()
-            break;
-    };
-});
+// Всплывашки
+function toastInit(stat, tmess) {
+    $('#tHead').addClass(stat);
+    $('#tMess1').text(tmess);
+    $('.toast').toast('show');
+};
 
+//Активация кнопки "Открыть"
 $(".form-check-input").on("click", function() {
     $("#btn_sel").prop("disabled", false);
+});
+
+//Кнопки
+$('.btn').on('click', function(e) {
+    valleyNumber = e.target.id.slice(3,4)
+    switch (e.target.id) {
+        // Открыть панель управления
+        case 'btn_sel':
+            btn_sel()
+            break;
+        // Старт
+        case 'btn' + valleyNumber + '_7-9':
+            if ($('#dirInd' + valleyNumber).text() == '---') {
+                toastInit('bg-danger', 'Не выбрано направление');
+            };
+            break;
+        // Стоп
+        case 'btn' + valleyNumber + '_8-9':
+            toastInit('bg-success', 'Система остановлена');;
+            break;
+        // Направление
+        case 'btn' + valleyNumber + '_7-10':
+            $('#dirInd' + valleyNumber).text('Вперёд');
+            break;
+        case 'btn' + valleyNumber + '_8-10':
+            $('#dirInd' + valleyNumber).text('Назад');
+            break;
+        // Вода
+        case 'btn' + valleyNumber + '_7-11':
+            $('#watInd' + valleyNumber).text('Вкл');
+            break;
+        case 'btn' + valleyNumber + '_8-11':
+            $('#watInd' + valleyNumber).text('Выкл');
+            break;
+        // Автопарковка
+        case 'btn' + valleyNumber + '_7-12':
+            $('#sisInd' + valleyNumber).text('Вкл');
+            break;
+        case 'btn' + valleyNumber + '_8-12':
+            $('#sisInd' + valleyNumber).text('Выкл');
+            break;
+    };
 });
