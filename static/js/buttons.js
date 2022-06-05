@@ -1,48 +1,8 @@
-// Проверка выбранных систем
-function btn_sel() {
-    let duet = []
-    let valley = []
-    let inputElems = document.getElementsByTagName("input"),
-    count = 0;
-    inuptId = []
-    for (let i=0; i<inputElems.length; i++) {
-        if (inputElems[i].type == "checkbox" && inputElems[i].checked == true) {
-            count++;
-            duet.push(inputElems[i].value)
-            valley.push(inputElems[i].id)
-        }
-    }
-    switch (count) {
-        case 1:
-            window.open("/simple?first=" + valley[0], "_self")
-            break;
-        case 2:
-            if (duet[0] == duet[1] && duet[0] != 0) {
-                window.open("/simple?first=" + valley[0] + "&second=" + valley[1], "_self")
-            }
-            else {
-                $('#mal1').text("Выбранные системы не могут работать в паре");
-                $('#modAlert').modal("show");
-            }
-            break;
-        default:
-            $('#mal1').text("Вы можете выбрать не более двух систем");
-            $('#modAlert').modal("show");
-            break;
-    }
-}
-
-// Всплывашки
-function toastInit(stat, tmess) {
-    $('#tHead').addClass(stat);
-    $('#tMess1').text(tmess);
-    $('.toast').toast('show');
-};
-
 //Активация кнопки "Открыть"
 $(".form-check-input").on("click", function() {
     $("#btn_sel").prop("disabled", false);
 });
+
 
 //Кнопки
 $('.btn').on('click', function(e) {
@@ -54,34 +14,76 @@ $('.btn').on('click', function(e) {
             break;
         // Старт
         case 'btn' + valleyNumber + '_7-9':
+            // Проверка выбора направления
             if ($('#dirInd' + valleyNumber).text() == '---') {
-                toastInit('bg-danger', 'Не выбрано направление');
-            };
+                $('#mal1').text("Не выбрано направление");
+                $('#modAlert').modal("show");
+            }
+            else {
+                valStatus.id = valleyNumber
+                valStatus.run = 'True'
+                indEdit('dirInd','bg-danger', 'bg-success')
+                if (valStatus.wat == 'True') {
+                    valStatus.valve1 = 'True'
+                    valStatus.valve2 = 'True'
+                    indEdit('watInd','bg-danger', 'bg-success')
+                    indEdit('valve1','bg-danger', 'bg-success')
+                    indEdit('valve2','bg-danger', 'bg-success')
+                }
+                if (valStatus.sis == 'True') { indEdit('sisInd','bg-danger', 'bg-success') }
+                toastInit('bg-success', 'Система запущена');
+                dataSave()
+                valStatus.id = valleyNumber
+                valStatus.run = 'False'
+                valStatus.dir = '-'
+                valStatus.wat = 'False'
+                valStatus.sis = 'False'
+                valStatus.valve1 = 'False'
+                valStatus.valve2 = 'False'
+            }
             break;
         // Стоп
         case 'btn' + valleyNumber + '_8-9':
-            toastInit('bg-success', 'Система остановлена');;
+            $('#dirInd' + valleyNumber).text('---');
+            $('#watInd' + valleyNumber).text('Выкл');
+            $('#sisInd' + valleyNumber).text('Выкл');
+            valStatus.id = valleyNumber
+            valStatus.run = 'False'
+            valStatus.dir = '-'
+            valStatus.wat = 'False'
+            valStatus.sis = 'False'
+            valStatus.valve1 = 'False'
+            valStatus.valve2 = 'False'
+            dataSave()
+            indEdit('All', 'bg-success', 'bg-danger')
+            toastInit('bg-success', 'Система остановлена');
             break;
         // Направление
         case 'btn' + valleyNumber + '_7-10':
             $('#dirInd' + valleyNumber).text('Вперёд');
+            valStatus.dir = 'F'
             break;
         case 'btn' + valleyNumber + '_8-10':
             $('#dirInd' + valleyNumber).text('Назад');
+            valStatus.dir = 'R'
             break;
         // Вода
         case 'btn' + valleyNumber + '_7-11':
             $('#watInd' + valleyNumber).text('Вкл');
+            valStatus.wat = 'True'
             break;
         case 'btn' + valleyNumber + '_8-11':
             $('#watInd' + valleyNumber).text('Выкл');
+            valStatus.wat = 'False'
             break;
         // Автопарковка
         case 'btn' + valleyNumber + '_7-12':
             $('#sisInd' + valleyNumber).text('Вкл');
+            valStatus.sis = 'True'
             break;
         case 'btn' + valleyNumber + '_8-12':
             $('#sisInd' + valleyNumber).text('Выкл');
+            valStatus.sis = 'False'
             break;
     };
 });

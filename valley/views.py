@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Valley, Status
 from .control import ControlSimple
 
@@ -24,9 +25,24 @@ def simple(request):
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst})
 
 
-def test(request):
-    valleyLst = Valley.objects.all().values()
-    statusLst = Status.objects.all().values()
-    btnLst = ControlSimple().rusButtons
+def running(request):
+    valRun = []
+    valleyLst = Status.objects.all().values()
+    for currVall in valleyLst:
+        if currVall['status_run'] == True:
+            valRun.append(currVall['status_valley_id'])
 
-    return render(request, 'test.html', {'btnLst': btnLst, 'valleyLst': valleyLst, 'statusLst': statusLst})
+    print(valRun)
+
+    return render(request, simple('first=2'))
+
+
+def statussave(request):
+    valleyId = Valley.objects.get(id=request.GET.get('id'))
+    currData = Status(status_valley=valleyId, status_ctrl=True, status_run=request.GET.get('run'),
+                      status_dir=request.GET.get('dir'), status_wat=request.GET.get('wat'),
+                      status_sis=request.GET.get('sis'), status_valve1=request.GET.get('valve1'),
+                      status_valve2=request.GET.get('valve2'))
+    currData.save()
+
+    return HttpResponse('Ok')

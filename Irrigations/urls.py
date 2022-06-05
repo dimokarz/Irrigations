@@ -21,7 +21,8 @@ admin.site.site_header = 'Панель администратора'
 admin.site.index_title = 'Администрирование систем полива и видеонаблюдения'
 
 urlpatterns = [
-    path('test/', valley.views.test),
+    path('running/', valley.views.running),
+    path('statussave/', valley.views.statussave),
     path('simple/', valley.views.simple),
     path('', valley.views.index),
     path('admin/', admin.site.urls),

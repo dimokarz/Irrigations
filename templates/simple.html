@@ -12,17 +12,16 @@
                             <div class="row">
                                 <div class="col-6"><h5>{{ valley.status_valley }}</h5></div>
                                 <div class="col">
-                                    {% if valley.status_run == True %}
-                                        <span class="badge bg-success" style="width: 100px;">Управление</span>
-                                    {% else %}
-                                        <span class="badge bg-danger" style="width: 100px;">Управление</span>
-                                    {% endif %}
+                                    <span class="badge bg-success" style="width: 100px;
+                                        margin-top: 7px;">Управление</span>
                                 </div>
                                 <div class="col">
                                     {% if valley.status_fail == True %}
-                                        <span class="badge bg-success" style="width: 100px;">Авария</span>
+                                        <span class="badge bg-success" id="fail{{ valley.status_valley_id }}"
+                                              style="width: 100px; margin-top: 7px;">Авария</span>
                                     {% else %}
-                                        <span class="badge bg-danger" style="width: 100px;">Авария</span>
+                                        <span class="badge bg-danger" id="fail{{ valley.status_valley_id }}"
+                                              style="width: 100px; margin-top: 7px;">Авария</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -85,16 +84,20 @@
                                     <div class="row">
                                         <div class="col-6">
                                             {% if valley.status_valve1 == True %}
-                                                <span class="badge bg-success" style="width: 100px;">Задвижка 1</span>
+                                                <span class="badge bg-success" id="valve1{{ valley.status_valley_id }}"
+                                                      style="width: 100px;">Задвижка 1</span>
                                             {% else %}
-                                                <span class="badge bg-danger" style="width: 100px;">Задвижка 1</span>
+                                                <span class="badge bg-danger" id="valve1{{ valley.status_valley_id }}"
+                                                      style="width: 100px;">Задвижка 1</span>
                                             {% endif %}
                                         </div>
                                         <div class="col-6">
                                             {% if valley.status_valve1 == True %}
-                                                <span class="badge bg-success" style="width: 100px;">Задвижка 2</span>
+                                                <span class="badge bg-success" id="valve2{{ valley.status_valley_id }}"
+                                                      style="width: 100px;">Задвижка 2</span>
                                             {% else %}
-                                                <span class="badge bg-danger" style="width: 100px;">Задвижка 2</span>
+                                                <span class="badge bg-danger" id="valve2{{ valley.status_valley_id }}"
+                                                      style="width: 100px;">Задвижка 2</span>
                                             {% endif %}
                                         </div>
                                     </div>

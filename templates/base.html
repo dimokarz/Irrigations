@@ -16,12 +16,36 @@
 </head>
 <body>
     {% include "alerts.html" %}
+</div>
     <nav class="navbar navbar-dark bg-dark" style="box-shadow: 0.1em 0.1em 2px rgba(122,122,122,0.5);">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img src="/static/img/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 Управление системами полива
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Меню</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="list-group list-group-flush">
+                         <a href="/running" class="list-group-item list-group-item-action">Запущенные системы</a>
+                         <a href="#" class="list-group-item list-group-item-action">Тестирование систем</a>
+                         <a href="#" class="list-group-item list-group-item-action">Камеры</a>
+                         <a href="/admin" class="list-group-item list-group-item-action">Администрирование</a>
+                    </div>
+                    <br>
+                    <div class="list-group list-group-flush">
+                         <a href="#" class="list-group-item list-group-item-action">Профиль</a>
+                         <a href="#" class="list-group-item list-group-item-action">Выход</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
     <br>
@@ -31,5 +55,7 @@
         <div>{% block content%}{% endblock content %}</div>
     </div>
 </body>
+<script src="{% static 'js/index.js' %}"></script>
 <script src="{% static 'js/buttons.js' %}"></script>
+<script src="{% static 'js/functions.js' %}"></script>
 </html>

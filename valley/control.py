@@ -34,5 +34,5 @@ class ControlSimple:
         return self._selLng('eng')
 
 ### Список кнопок для полной панели
-class ControlFull:
+class ControlFull(ControlSimple):
     pass
