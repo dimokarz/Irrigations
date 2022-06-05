@@ -1,5 +1,4 @@
 from django.db import models
-from surveillance.models import VideoSrv
 
 class Pump(models.Model):
 

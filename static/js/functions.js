@@ -69,3 +69,25 @@ function indEdit(currInd = 'All', removeClass, addClass) {
         $('#' + currInd + valleyNumber).addClass(addClass);
     }
 }
+
+//Открытие запущенных систем
+function witchRun() {
+    $.ajax({
+        url: '/whichrun/',
+        type: 'GET',
+        success: function (data) {
+            switch (data.length) {
+                case 1:
+                    window.open("/simple?first=v_chk" + data[0], "_self");
+                    break;
+                case 2:
+                    window.open("/simple?first=v_chk" + data[0] + "&second=v_chk" + data[1], "_self");
+                    break;
+                default:
+                    $('#mal1').text("Ни одна система не запущена");
+                    $('#modAlert').modal("show");
+                    break;
+            }
+        }
+    });
+}
