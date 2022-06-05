@@ -26,15 +26,21 @@ def simple(request):
 
 
 def running(request):
+    btnLst = ControlSimple().rusButtons
     valRun = []
     valleyLst = Status.objects.all().values()
     for currVall in valleyLst:
         if currVall['status_run'] == True:
-            valRun.append(currVall['status_valley_id'])
+            valRun.append(str(currVall['status_valley_id']))
+    if len(valRun) == 2:
+        valleyLst = Status.objects.all().in_bulk([valRun[0], valRun[1]]).values()
+    else:
+        valleyLst = Status.objects.all().in_bulk([valRun[0]]).values()
+    title = ' - Управление'
 
     print(valRun)
 
-    return render(request, simple('first=2'))
+    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst})
 
 
 def statussave(request):
