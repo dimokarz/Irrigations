@@ -21,7 +21,6 @@ def simple(request):
     else:
         valleyLst = Status.objects.all().in_bulk([first]).values()
     title = ' - Управление'
-
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst})
 
 
@@ -31,10 +30,7 @@ def whichrun(request):
     for run in statusLst:
         if run['status_run'] == True:
             running.append(run['status_valley_id'])
-
-    print(running)
     return HttpResponse(running)
-
 
 
 def statussave(request):
@@ -44,5 +40,4 @@ def statussave(request):
                       status_sis=request.GET.get('sis'), status_valve1=request.GET.get('valve1'),
                       status_valve2=request.GET.get('valve2'))
     currData.save()
-
     return HttpResponse('Ok')

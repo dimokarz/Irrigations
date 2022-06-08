@@ -1,4 +1,5 @@
 from django.db import models
+from surveillance.models import VideoSrv
 
 class Pump(models.Model):
 
@@ -23,9 +24,12 @@ class Valley(models.Model):
 
     valley_name = models.CharField(max_length=30, verbose_name='Название')
     valley_addr = models.CharField(max_length=15, verbose_name='Адрес')
-    valley_pump = models.ForeignKey(Pump, on_delete=models.CASCADE, related_name='valley', verbose_name='Насос')
     valley_rele = models.SmallIntegerField(default=1, verbose_name='Реле')
     valley_duet = models.SmallIntegerField(default=0, verbose_name='Связка')
+    valley_pump = models.ForeignKey(Pump, on_delete=models.CASCADE, related_name='valley', verbose_name='Насос')
+    valley_videosrv = models.ForeignKey(VideoSrv, on_delete=models.PROTECT, related_name='valley_cam',
+                                        verbose_name='Видео сервер')
+    valley_camera = models.CharField(max_length=8, verbose_name='Камера')
 
 
     def __str__(self):
@@ -39,6 +43,8 @@ class Status(models.Model):
         verbose_name_plural = 'Состояния систем'
         ordering = ['pk']
 
+    status_valley = models.OneToOneField(Valley, on_delete=models.CASCADE, primary_key=True,
+                                         related_name='status', verbose_name='Система')
     status_run = models.BooleanField(default=False, verbose_name='Запущена')
     status_ctrl = models.BooleanField(default=False, verbose_name='Управление')
     status_fail = models.BooleanField(default=False, verbose_name='Авария')
@@ -48,8 +54,9 @@ class Status(models.Model):
     status_sis = models.BooleanField(default=False, verbose_name='АвтоСтоп')
     status_valve1 = models.BooleanField(default=False, verbose_name='Задвижка 1')
     status_valve2 = models.BooleanField(default=False, verbose_name='Задвижка 2')
-    status_valley = models.OneToOneField(Valley, on_delete=models.CASCADE, primary_key=True,
-                                         related_name='status', verbose_name='Система')
+
+    def __str__(self):
+        return self.status_valley_id
 
 
 
