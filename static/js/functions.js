@@ -91,3 +91,15 @@ function witchRun() {
         }
     });
 }
+
+function startInit() {
+    $('#myModal').modal('show')
+    $('#myModal').modal('hide')
+    setTimeout(function(){
+        $('#pValve1').removeClass('text-secondary');
+        $('#pValve1').addClass('text-success');
+    }, 2000);
+    $('#pValve1').text('Задвижка открыта');
+
+    toastInit('bg-success', 'Система запущена');
+}

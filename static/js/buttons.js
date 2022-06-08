@@ -29,9 +29,9 @@ $('.btn').on('click', function(e) {
                     indEdit('watInd','bg-danger', 'bg-success')
                     indEdit('valve1','bg-danger', 'bg-success')
                     indEdit('valve2','bg-danger', 'bg-success')
+                    startInit()
                 }
                 if (valStatus.sis == 'True') { indEdit('sisInd','bg-danger', 'bg-success') }
-                toastInit('bg-success', 'Система запущена');
                 dataSave()
                 valStatus.id = valleyNumber
                 valStatus.run = 'False'
