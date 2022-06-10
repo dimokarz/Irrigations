@@ -22,14 +22,12 @@ $('.btn').on('click', function(e) {
             else {
                 valStatus.id = valleyNumber
                 valStatus.run = 'True'
-                indEdit('dirInd','bg-danger', 'bg-success')
                 if (valStatus.wat == 'True') {
-                    valStatus.valve1 = 'True'
-                    valStatus.valve2 = 'True'
-                    indEdit('watInd','bg-danger', 'bg-success')
-                    indEdit('valve1','bg-danger', 'bg-success')
-                    indEdit('valve2','bg-danger', 'bg-success')
                     startInit()
+                }
+                else {
+                    indEdit('dirInd','bg-danger', 'bg-success')
+                    toastInit('bg-success', 'Система запущена без подачи воды');
                 }
                 if (valStatus.sis == 'True') { indEdit('sisInd','bg-danger', 'bg-success') }
                 dataSave()

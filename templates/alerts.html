@@ -33,56 +33,41 @@
   </div>
 </div>
 
-<div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="irrigOn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background: #e6e6e6;">
                 <h5 class="modal-title" id="staticBackdropLabel">Valley PRO2</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-8"><p class="text-secondary" id="pValve1">Открытие задвижки</p></div>
+                    <div class="col-8"><p class="text-secondary fs-5" id="pValve1"></p></div>
                     <div class="col">
-{#                        <div class="spinner-border spinner-border-sm" id="startSpin0" role="status"></div>#}
+                        <div class="spinner-border spinner-border-sm" id="spValve1" role="status"></div>
                     </div>
                 </div>
-                <p>Запуск первого насоса</p>
-                <p>Запуск второго насоса</p>
-                <p>Запуск системы</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+               <div class="row">
+                    <div class="col-8"><p class="text-secondary fs-5" id="pPump1"></p></div>
+                    <div class="col">
+                        <div class="spinner-border spinner-border-sm" id="spPump1" role="status"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8"><p class="text-secondary fs-5" id="pValve2"></p></div>
+                    <div class="col">
+                        <div class="spinner-border spinner-border-sm" id="spValve2" role="status"></div>
+                    </div>
+                </div>
+               <div class="row">
+                    <div class="col-8"><p class="text-secondary fs-5" id="pPump2"></p></div>
+                    <div class="col">
+                        <div class="spinner-border spinner-border-sm" id="spPump2" role="status"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-
-
-<div class="modal fade" id="irrigOn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-light">
-                <h5 class="modal-title" id="irrStartLabel">ValleyPro2</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="clearfix">
-                    <strong id="startPoint0">Открытие задвижки...   </strong>
-                    <div class="spinner-border spinner-border-sm float-end" id="startSpin0" role="status" aria-hidden="true"></div>
-                </div>
-                <div class="clearfix">
-                    <strong id="startPoint1">Запуск насоса...   </strong>
-                    <div class="spinner-border spinner-border-sm float-end" id="startSpin1" role="status" aria-hidden="true"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Стоп</button>
-            </div>
-        </div>
-    </div>
-</div>

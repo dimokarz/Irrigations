@@ -28,8 +28,8 @@ class Valley(models.Model):
     valley_duet = models.SmallIntegerField(default=0, verbose_name='Связка')
     valley_pump = models.ForeignKey(Pump, on_delete=models.CASCADE, related_name='valley', verbose_name='Насос')
     valley_videosrv = models.ForeignKey(VideoSrv, on_delete=models.PROTECT, related_name='valley_cam',
-                                        verbose_name='Видео сервер')
-    valley_camera = models.CharField(max_length=8, verbose_name='Камера')
+                                        verbose_name='Видео сервер', null=True)
+    valley_camera = models.CharField(max_length=8, verbose_name='Камера', null=True)
 
 
     def __str__(self):
@@ -55,8 +55,6 @@ class Status(models.Model):
     status_valve1 = models.BooleanField(default=False, verbose_name='Задвижка 1')
     status_valve2 = models.BooleanField(default=False, verbose_name='Задвижка 2')
 
-    def __str__(self):
-        return self.status_valley_id
 
 
 
