@@ -1,3 +1,12 @@
+.container-my {
+    max-width: 1600px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
 @font-face {
     font-family: 'Digital-7';
     font-style: normal;
@@ -13,9 +22,9 @@
 }
 
 .btn_fix {
-    width: 115px;
+    width: 110px;
     height: 60px;
-    font-size: 1.2em;;
+    font-size: 1.1em;;
     font-weight: bold;
     margin-bottom: 5px;
     padding: 2px;
@@ -43,4 +52,21 @@
     font-family: 'Digital-7';
     font-size: 1.9em;
     margin-top: -16px;
+}
+
+.thumb-wrap {
+  position: relative;
+  padding-bottom: 100%;  /* 56.25% задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
+  height: 0;
+  overflow: hidden;
+}
+
+.thumb-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-width: 0;
+  outline-width: 0;
 }

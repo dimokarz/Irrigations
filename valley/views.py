@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Valley, Status
 from .control import ControlSimple
+from surveillance.trassir import *
 
 
 def index(request):
@@ -13,6 +14,7 @@ def index(request):
 
 
 def simple(request):
+    cam = camera()
     btnLst = ControlSimple().rusButtons
     first = int(request.GET.get('first')[5:])
     if request.GET.get('second') is not None:
@@ -21,7 +23,7 @@ def simple(request):
     else:
         valleyLst = Status.objects.all().in_bulk([first]).values()
     title = ' - Управление'
-    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst})
+    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst, 'cam': cam[0]})
 
 
 def whichrun(request):
