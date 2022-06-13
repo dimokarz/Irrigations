@@ -4,4 +4,4 @@ from .models import VideoSrv
 
 @admin.register(VideoSrv)
 class VideoSrvAdmin(admin.ModelAdmin):
-    list_display = ['videosrv_name', 'videosrv_addr']
+    list_display = ['videosrv_name', 'videosrv_addr', 'videosrv_http', 'videosrv_video']

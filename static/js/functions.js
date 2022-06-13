@@ -96,28 +96,26 @@ function witchRun() {
 function startInit() {
     $('#pValve1').text('Открытие первой задвижки...')
     $('#pValve1').removeClass('text-success')
-    $('#pValve1').removeClass('fw-bold')
     $('#pValve1').addClass('text-body')
     $('#spValve1').show()
 
     $('#pPump1').text('Запуск первого насоса...')
     $('#pPump1').removeClass('text-success')
-    $('#pPump1').removeClass('fw-bold')
     $('#pPump1').addClass('text-secondary')
     $('#spPump1').hide()
     $('#irrigOn').modal('show')
 
     $('#pValve2').text('Открытие второй задвижки...')
     $('#pValve2').removeClass('text-success')
-    $('#pValve2').removeClass('fw-bold')
     $('#pValve2').addClass('text-secondary')
     $('#spValve2').hide()
 
     $('#pPump2').text('Запуск второго насоса...')
     $('#pPump2').removeClass('text-success')
-    $('#pPump2').removeClass('fw-bold')
     $('#pPump2').addClass('text-secondary')
     $('#spPump2').hide()
+
+    $('.progress-bar').css('width', '0%');
 
     $('#irrigOn').modal('show')
 
@@ -125,53 +123,56 @@ function startInit() {
         $('#spValve1').hide()
         $('#pValve1').removeClass('text-body');
         $('#pValve1').addClass('text-success');
-        $('#pValve1').addClass('fw-bold');
         $('#pValve1').text('Первая задвижка открыта');
         $('#spPump1').show()
         $('#pPump1').removeClass('text-secondary')
         $('#pPump1').addClass('text-body')
         valStatus.valve1 = 'True'
+        $('.progress-bar').css('width', '25%');
     }, 2000);
 
     setTimeout(function () {
         $('#spPump1').hide()
         $('#pPump1').removeClass('text-body');
         $('#pPump1').addClass('text-success');
-        $('#pPump1').addClass('fw-bold');
         $('#pPump1').text('Первый насос запущен');
         $('#spValve2').show()
         $('#pValve2').removeClass('text-secondary')
         $('#pValve2').addClass('text-body')
+        $('.progress-bar').css('width', '50%')
     }, 4000);
 
     setTimeout(function(){
         $('#spValve2').hide()
         $('#pValve2').removeClass('text-body');
         $('#pValve2').addClass('text-success');
-        $('#pValve2').addClass('fw-bold');
         $('#pValve2').text('Вторая задвижка открыта');
         $('#spPump2').show()
         $('#pPump2').removeClass('text-secondary')
         $('#pPump2').addClass('text-body')
         valStatus.valve2 = 'True'
+        $('.progress-bar').css('width', '75%');
     }, 6000);
 
     setTimeout(function () {
         $('#spPump2').hide()
         $('#pPump2').removeClass('text-body');
         $('#pPump2').addClass('text-success');
-        $('#pPump2').addClass('fw-bold');
         $('#pPump2').text('Второй насос запущен');
         indEdit('dirInd','bg-danger', 'bg-success')
         indEdit('watInd','bg-danger', 'bg-success')
         indEdit('valve1','bg-danger', 'bg-success')
         indEdit('valve2','bg-danger', 'bg-success')
+        $('.progress-bar').css('width', '100%');
     }, 8000);
 
     setTimeout(function () {
         $('#irrigOn').modal('hide')
-        toastInit('bg-success', 'Система запущена с подачей воды');
     }, 10000);
+
+    setTimeout(function () {
+        toastInit('bg-success', 'Система запущена с подачей воды');
+    }, 11000);
 
 
 
