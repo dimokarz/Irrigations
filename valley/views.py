@@ -14,16 +14,18 @@ def index(request):
 
 
 def simple(request):
-    cam = camera()
     btnLst = ControlSimple().rusButtons
     first = int(request.GET.get('first')[5:])
     if request.GET.get('second') is not None:
         second = request.GET.get('second')[5:]
         valleyLst = Status.objects.all().in_bulk([first, second]).values()
+        cam = VideoUrl(first, second)
     else:
         valleyLst = Status.objects.all().in_bulk([first]).values()
+        cam = VideoUrl(first, 0)
     title = ' - Управление'
-    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst, 'cam': cam[0]})
+    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
+                                           'pCam': cam.pumpCam, 'vCam': cam.valleyCam})
 
 
 def whichrun(request):

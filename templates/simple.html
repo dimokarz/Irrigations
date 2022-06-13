@@ -135,6 +135,14 @@
                                     {% endfor %}
                                 </div>
                             </div>
+                            <hr>
+                            {% with forloop as cnt %}
+                                {% if cnt.counter0 == 0 %}
+                                    <img class="img_fit" src="{{ vCam.0 }}" height="270">
+                                {% else %}
+                                    <img class="img_fit" src="{{ vCam.1 }}" height="270">
+                                {% endif %}
+                            {% endwith %}
                         </div>
                     </div>
                 </div>
@@ -146,7 +154,7 @@
                     <div class="col-6"><h5>Насосная станция</h5></div>
                 </div>
                 <div class="card-body">
-                    <img class="img_fit" src="{{ cam }}" height="222">
+                    <img class="img_fit" src="{{ pCam }}" height="270">
                 </div>
             </div>
         </div>
@@ -161,7 +169,6 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
           <div class="accordion-body">
-             Тынц
           </div>
         </div>
       </div>
