@@ -23,6 +23,9 @@ $('.btn').on('click', function(e) {
                 valStatus.id = valleyNumber
                 valStatus.run = 'True'
                 if (valStatus.wat == 'True') {
+                    valStatus.valve1 = 'True'
+                    valStatus.valve2 = 'True'
+                    alert(valStatus.run + valStatus.valve1)
                     startInit()
                 }
                 else {
@@ -84,4 +87,17 @@ $('.btn').on('click', function(e) {
             valStatus.sis = 'False'
             break;
     };
+    let url = '/btnclick/1'
+    $.ajax({
+        url: url,
+        type: 'GET',
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+//Открытие камеры
+$('img').on('click', function(e) {
+    $('#modCam1').modal("show")
 });

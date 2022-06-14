@@ -138,14 +138,15 @@
                             <hr>
                             {% with forloop as cnt %}
                                 {% if cnt.counter0 == 0 %}
-                                    <img class="img_fit" src="{{ vCam.0 }}" height="270">
+                                    <img class="img_fit" id="cam{{ valley.status_valley_id }}" src="{{ vCam.0 }}" height="270">
                                 {% else %}
-                                    <img class="img_fit" src="{{ vCam.1 }}" height="270">
+                                    <img class="img_fit" id="cam{{ valley.status_valley_id }}" src="{{ vCam.1 }}" height="270">
                                 {% endif %}
                             {% endwith %}
                         </div>
                     </div>
                 </div>
+
             {% endif %}
         {% endfor %}
         <div class="col-4">
@@ -154,7 +155,7 @@
                     <div class="col-6"><h5>Насосная станция</h5></div>
                 </div>
                 <div class="card-body">
-                    <img class="img_fit" src="{{ pCam }}" height="270">
+                    <img class="img_fit" id="cam_pump" src="{{ pCam }}" height="270">
                 </div>
             </div>
         </div>

@@ -127,7 +127,6 @@ function startInit() {
         $('#spPump1').show()
         $('#pPump1').removeClass('text-secondary')
         $('#pPump1').addClass('text-body')
-        valStatus.valve1 = 'True'
         $('.progress-bar').css('width', '25%');
     }, 2000);
 
@@ -150,7 +149,6 @@ function startInit() {
         $('#spPump2').show()
         $('#pPump2').removeClass('text-secondary')
         $('#pPump2').addClass('text-body')
-        valStatus.valve2 = 'True'
         $('.progress-bar').css('width', '75%');
     }, 6000);
 
@@ -173,7 +171,4 @@ function startInit() {
     setTimeout(function () {
         toastInit('bg-success', 'Система запущена с подачей воды');
     }, 11000);
-
-
-
-}
+};

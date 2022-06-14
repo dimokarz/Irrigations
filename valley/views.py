@@ -25,14 +25,14 @@ def simple(request):
         cam = VideoUrl(first, 0)
     title = ' - Управление'
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-                                           'pCam': cam.pumpCam, 'vCam': cam.valleyCam})
+                                           'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'vCamMain': cam.valleyMain})
 
 
 def whichrun(request):
     running = []
     statusLst = Status.objects.all().values()
     for run in statusLst:
-        if run['status_run'] == True:
+        if run['status_run']:
             running.append(run['status_valley_id'])
     return HttpResponse(running)
 
@@ -45,3 +45,8 @@ def statussave(request):
                       status_valve2=request.GET.get('valve2'))
     currData.save()
     return HttpResponse('Ok')
+
+
+def btnclick(request):
+    ttt = request.GET
+    return HttpResponse(ttt)
