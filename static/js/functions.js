@@ -172,3 +172,15 @@ function startInit() {
         toastInit('bg-success', 'Система запущена с подачей воды');
     }, 11000);
 };
+
+
+function reqRele(btnClick) {
+    let url = '/btnclick/?contr=' + btnClick.slice(3, 4)  + '&rele1=' + btnClick.slice(5, 6) + '&rele2=' + btnClick.slice(7)
+    $.ajax({
+        url: url,
+        type: 'GET',
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}

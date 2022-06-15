@@ -63,38 +63,36 @@ $('.btn').on('click', function(e) {
         case 'btn' + valleyNumber + '_7-10':
             $('#dirInd' + valleyNumber).text('Вперёд');
             valStatus.dir = 'F'
+            reqRele(e.target.id)
             break;
         case 'btn' + valleyNumber + '_8-10':
             $('#dirInd' + valleyNumber).text('Назад');
             valStatus.dir = 'R'
+            reqRele(e.target.id)
             break;
         // Вода
         case 'btn' + valleyNumber + '_7-11':
             $('#watInd' + valleyNumber).text('Вкл');
             valStatus.wat = 'True'
+            reqRele(e.target.id)
             break;
         case 'btn' + valleyNumber + '_8-11':
             $('#watInd' + valleyNumber).text('Выкл');
             valStatus.wat = 'False'
+            reqRele(e.target.id)
             break;
         // Автопарковка
         case 'btn' + valleyNumber + '_7-12':
             $('#sisInd' + valleyNumber).text('Вкл');
             valStatus.sis = 'True'
+            reqRele(e.target.id)
             break;
         case 'btn' + valleyNumber + '_8-12':
             $('#sisInd' + valleyNumber).text('Выкл');
             valStatus.sis = 'False'
+            reqRele(e.target.id)
             break;
-    };
-    let url = '/btnclick/1'
-    $.ajax({
-        url: url,
-        type: 'GET',
-        error: function(error) {
-            console.log(error);
-        }
-    });
+    }
 });
 
 //Открытие камеры

@@ -48,5 +48,7 @@ def statussave(request):
 
 
 def btnclick(request):
-    ttt = request.GET
-    return HttpResponse(ttt)
+    contr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
+    rele1 = request.GET.get('rele1')
+    rele2 = request.GET.get('rele2')
+    return HttpResponse(contr)
