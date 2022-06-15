@@ -179,8 +179,8 @@ function reqRele(btnClick) {
     $.ajax({
         url: url,
         type: 'GET',
-        error: function(error) {
-            console.log(error);
+        success: function (response) {
+            alert(response)
         }
     });
 }

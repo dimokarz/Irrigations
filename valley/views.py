@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Valley, Status
 from .control import ControlSimple
+from .arduino import *
 from surveillance.trassir import *
 
 
@@ -48,7 +49,7 @@ def statussave(request):
 
 
 def btnclick(request):
-    contr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
+    addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
     rele1 = request.GET.get('rele1')
     rele2 = request.GET.get('rele2')
-    return HttpResponse(contr)
+    return HttpResponse(pinRele(addr, rele1, rele2))
