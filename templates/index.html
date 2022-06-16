@@ -12,12 +12,12 @@
                     {% if vall.id == stat.status_valley_id %}
                         <label class="list-group-item list-group-item-action">
                             <div class="row">
-                                <div class="col-10">
+                                <div class="col-11">
                                     <input class="form-check-input me-1" type="checkbox" value="{{ vall.valley_duet }}"
                                         id="v_chk{{vall.id}}" name="v_chk{{forloop.counter}}"
                                         {% if stat.status_ctrl == False %}disabled{% endif %}> {{ vall.valley_name }}</input>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-1">
                                     {% if stat.status_run == False %}
                                         {% if stat.status_ctrl == False %}
                                             <span class="badge bg-danger" style="width: 100px;">Не доступна</span>
@@ -35,8 +35,7 @@
             {% endfor %}
         </div>
     </div>
-    <br>
-    <div class="card"><button type="button" class="btn btn-primary" id="btn_sel" disabled>Открыть</button>
-    </div>
+    <br><br>
+    <div class="card"><button type="button" class="btn btn-primary" id="btn_sel" disabled>Открыть</button></div>
 
 {% endblock content %}

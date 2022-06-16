@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Valley, Status
 from .control import ControlSimple
 from .arduino import *
 from surveillance.trassir import *
 
 
+@login_required
 def index(request):
     header = 'Выбор систем полива'
     title = ' - Выбор'
@@ -13,7 +15,7 @@ def index(request):
     statusLst = Status.objects.all()
     return render(request, 'index.html', {'header': header, 'title': title, 'valley': valleyLst, 'status': statusLst})
 
-
+@login_required
 def simple(request):
     btnLst = ControlSimple().rusButtons
     first = int(request.GET.get('first')[5:])
@@ -55,5 +57,4 @@ def btnclick(request):
     rele2 = request.GET.get('rele2')
     rele2 = int(rele2) + 30
     ttt = str(rele1) + '-' + str(rele2)
-    # return HttpResponse(ttt)
     return HttpResponse(pinRele(addr, rele1, rele2))

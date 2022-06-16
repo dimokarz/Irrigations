@@ -16,17 +16,19 @@
 </head>
 <body>
     {% include "alerts.html" %}
-</div>
     <nav class="navbar navbar-dark bg-dark" style="box-shadow: 0.1em 0.1em 2px rgba(122,122,122,0.5);">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img src="/static/img/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 Управление системами полива
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                     aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
+                <span class="badge bg-light text-success align-middle" style="width: 100px;">{{ user.username }}</span>
+                <span class="navbar-toggler-icon align-middle"></span>
             </button>
+
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Меню</h5>
@@ -42,7 +44,7 @@
                     <br>
                     <div class="list-group list-group-flush">
                          <a href="#" class="list-group-item list-group-item-action">Профиль</a>
-                         <a href="#" class="list-group-item list-group-item-action">Выход</a>
+                         <a href="/logut" class="list-group-item list-group-item-action">Выход</a>
                     </div>
                 </div>
             </div>
