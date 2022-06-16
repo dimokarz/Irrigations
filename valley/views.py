@@ -51,5 +51,9 @@ def statussave(request):
 def btnclick(request):
     addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
     rele1 = request.GET.get('rele1')
+    rele1 = int(rele1) + 30
     rele2 = request.GET.get('rele2')
+    rele2 = int(rele2) + 30
+    ttt = str(rele1) + '-' + str(rele2)
+    # return HttpResponse(ttt)
     return HttpResponse(pinRele(addr, rele1, rele2))

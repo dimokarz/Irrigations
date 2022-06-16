@@ -3,15 +3,14 @@ import requests
 pinShift = 30
 
 
-def pinRele(addr, rele1, rele2=0):
+def pinRele(addr, rele1, rele2):
     try:
-        rele1 = str(int(rele1 + pinShift))
         reqStr = requests.get('http://{}/{}'.format(addr, rele1), timeout=2).status_code
         if rele2 != 0:
-            rele2 = str(int(rele2 + pinShift))
             reqStr = requests.get('http://{}/{}'.format(addr, rele2), timeout=2).status_code
     except:
         reqStr = 'Fail'
+    print(addr, rele1, rele2)
     return reqStr
 
 
@@ -21,3 +20,6 @@ def pinInput(addr, pin):
     except:
         reqStr = 'Fail'
     return reqStr
+
+print(pinRele('192.168.1.251',7 , 10))
+

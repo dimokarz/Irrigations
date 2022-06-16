@@ -93,94 +93,116 @@ function witchRun() {
 }
 
 // Окно контроля запуска
-function startInit() {
-    $('#pValve1').text('Открытие первой задвижки...')
-    $('#pValve1').removeClass('text-success')
-    $('#pValve1').addClass('text-body')
-    $('#spValve1').show()
+function startInit(btn) {
+    $('#pValve').text('Открытие задвижек...')
+    $('#pValve').removeClass('text-success')
+    $('#pValve').addClass('text-body')
+    $('#spValve').show()
 
-    $('#pPump1').text('Запуск первого насоса...')
-    $('#pPump1').removeClass('text-success')
-    $('#pPump1').addClass('text-secondary')
-    $('#spPump1').hide()
-    $('#irrigOn').modal('show')
+    $('#pPump').text('Запуск насоса...')
+    $('#pPump').removeClass('text-success')
+    $('#pPump').addClass('text-secondary')
+    $('#spPump').hide()
 
-    $('#pValve2').text('Открытие второй задвижки...')
-    $('#pValve2').removeClass('text-success')
-    $('#pValve2').addClass('text-secondary')
-    $('#spValve2').hide()
-
-    $('#pPump2').text('Запуск второго насоса...')
-    $('#pPump2').removeClass('text-success')
-    $('#pPump2').addClass('text-secondary')
-    $('#spPump2').hide()
+    $('#pSystem').text('Запуск системы...')
+    $('#pSystem').removeClass('text-success')
+    $('#pSystem').addClass('text-secondary')
+    $('#spSystem').hide()
 
     $('.progress-bar').css('width', '0%');
 
     $('#irrigOn').modal('show')
 
     setTimeout(function(){
-        $('#spValve1').hide()
-        $('#pValve1').removeClass('text-body');
-        $('#pValve1').addClass('text-success');
-        $('#pValve1').text('Первая задвижка открыта');
-        $('#spPump1').show()
-        $('#pPump1').removeClass('text-secondary')
-        $('#pPump1').addClass('text-body')
-        $('.progress-bar').css('width', '25%');
+        $('#spValve').hide()
+        $('#pValve').removeClass('text-body');
+        $('#pValve').addClass('text-success');
+        $('#pValve').text('Задвижки открыты');
+        $('#spPump').show()
+        $('#pPump').removeClass('text-secondary')
+        $('#pPump').addClass('text-body')
+        indEdit('valve1','bg-danger', 'bg-success')
+        indEdit('valve2','bg-danger', 'bg-success')
+        $('.progress-bar').css('width', '50%');
     }, 2000);
 
     setTimeout(function () {
-        $('#spPump1').hide()
-        $('#pPump1').removeClass('text-body');
-        $('#pPump1').addClass('text-success');
-        $('#pPump1').text('Первый насос запущен');
-        $('#spValve2').show()
-        $('#pValve2').removeClass('text-secondary')
-        $('#pValve2').addClass('text-body')
-        $('.progress-bar').css('width', '50%')
-    }, 4000);
+        $('#spPump').hide()
+        $('#pPump').removeClass('text-body');
+        $('#pPump').addClass('text-success');
+        $('#pPump').text('Насос запущен');
+        indEdit('dirInd','bg-danger', 'bg-success')
+        $('#spSystem').show()
+        $('#pSystem').removeClass('text-secondary')
+        $('#pSystem').addClass('text-body')
+        $('.progress-bar').css('width', '75%')
+    }, 3000);
 
     setTimeout(function(){
-        $('#spValve2').hide()
-        $('#pValve2').removeClass('text-body');
-        $('#pValve2').addClass('text-success');
-        $('#pValve2').text('Вторая задвижка открыта');
-        $('#spPump2').show()
-        $('#pPump2').removeClass('text-secondary')
-        $('#pPump2').addClass('text-body')
-        $('.progress-bar').css('width', '75%');
-    }, 6000);
-
-    setTimeout(function () {
-        $('#spPump2').hide()
-        $('#pPump2').removeClass('text-body');
-        $('#pPump2').addClass('text-success');
-        $('#pPump2').text('Второй насос запущен');
-        indEdit('dirInd','bg-danger', 'bg-success')
+        $('#spSystem').hide()
+        $('#pSystem').removeClass('text-body');
+        $('#pSystem').addClass('text-success');
+        $('#pSystem').text('Система запущена');
         indEdit('watInd','bg-danger', 'bg-success')
-        indEdit('valve1','bg-danger', 'bg-success')
-        indEdit('valve2','bg-danger', 'bg-success')
+        $('#spSystem').show()
+        // $('#pSystem').removeClass('text-secondary')
+        // $('#pSystem').addClass('text-body')
         $('.progress-bar').css('width', '100%');
-    }, 8000);
+    }, 4000);
 
     setTimeout(function () {
         $('#irrigOn').modal('hide')
-    }, 10000);
+        reqRele('btn' + valleyNumber + '_7-9')
+    }, 5000);
 
     setTimeout(function () {
         toastInit('bg-success', 'Система запущена с подачей воды');
-    }, 11000);
+    }, 6000);
 };
 
 
 function reqRele(btnClick) {
     let url = '/btnclick/?contr=' + btnClick.slice(3, 4)  + '&rele1=' + btnClick.slice(5, 6) + '&rele2=' + btnClick.slice(7)
+    btnDisable(true, btnClick.slice(3, 4))
     $.ajax({
         url: url,
         type: 'GET',
         success: function (response) {
-            alert(response)
+            if (response != 'False') {
+                btnEnable(true, btnClick.slice(3, 4))
+            }
         }
     });
+}
+
+function btnDisable(all= false, btn= 0) {
+    if (all == false) {
+        $('#' + btn).prop("disabled", true);
+    }
+    else {
+        $('#btn' + btn + '_7-9').prop("disabled", true);
+        $('#btn' + btn + '_8-9').prop("disabled", true);
+        $('#btn' + btn + '_7-10').prop("disabled", true);
+        $('#btn' + btn + '_8-10').prop("disabled", true);
+        $('#btn' + btn + '_7-11').prop("disabled", true);
+        $('#btn' + btn + '_8-11').prop("disabled", true);
+        $('#btn' + btn + '_7-12').prop("disabled", true);
+        $('#btn' + btn + '_8-12').prop("disabled", true);
+    }
+}
+
+function btnEnable(all = false, btn = 0) {
+    if (all == false) {
+        $('#' + btn).prop("disabled", false);
+    }
+    else {
+        $('#btn' + btn + '_7-9').prop("disabled", false);
+        $('#btn' + btn + '_8-9').prop("disabled", false);
+        $('#btn' + btn + '_7-10').prop("disabled", false);
+        $('#btn' + btn + '_8-10').prop("disabled", false);
+        $('#btn' + btn + '_7-11').prop("disabled", false);
+        $('#btn' + btn + '_8-11').prop("disabled", false);
+        $('#btn' + btn + '_7-12').prop("disabled", false);
+        $('#btn' + btn + '_8-12').prop("disabled", false);
+    }
 }

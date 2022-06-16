@@ -25,8 +25,7 @@ $('.btn').on('click', function(e) {
                 if (valStatus.wat == 'True') {
                     valStatus.valve1 = 'True'
                     valStatus.valve2 = 'True'
-                    alert(valStatus.run + valStatus.valve1)
-                    startInit()
+                    startInit(valleyNumber)
                 }
                 else {
                     indEdit('dirInd','bg-danger', 'bg-success')
