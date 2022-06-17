@@ -15,6 +15,7 @@ def index(request):
     statusLst = Status.objects.all()
     return render(request, 'index.html', {'header': header, 'title': title, 'valley': valleyLst, 'status': statusLst})
 
+
 @login_required
 def simple(request):
     btnLst = ControlSimple().rusButtons
@@ -30,7 +31,7 @@ def simple(request):
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
                                            'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'vCamMain': cam.valleyMain})
 
-
+@login_required
 def whichrun(request):
     running = []
     statusLst = Status.objects.all().values()
@@ -39,7 +40,7 @@ def whichrun(request):
             running.append(run['status_valley_id'])
     return HttpResponse(running)
 
-
+@login_required
 def statussave(request):
     valleyId = Valley.objects.get(id=request.GET.get('id'))
     currData = Status(status_valley=valleyId, status_ctrl=True, status_run=request.GET.get('run'),
@@ -49,7 +50,7 @@ def statussave(request):
     currData.save()
     return HttpResponse('Ok')
 
-
+@login_required
 def btnclick(request):
     addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
     rele1 = request.GET.get('rele1')
@@ -57,4 +58,12 @@ def btnclick(request):
     rele2 = request.GET.get('rele2')
     rele2 = int(rele2) + 30
     ttt = str(rele1) + '-' + str(rele2)
-    return HttpResponse(pinRele(addr, rele1, rele2))
+    return HttpResponse(pin2Rele(addr, rele1, rele2))
+
+@login_required
+def singlerele(request):
+    addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
+    rele = request.GET.get('rele')
+    rele = int(rele) + 30
+    status = request.GET.get('status')
+    return HttpResponse(pin1Rele(addr, rele, status))

@@ -93,7 +93,7 @@ function witchRun() {
 }
 
 // Окно контроля запуска
-function startInit(btn) {
+function startInit(cntr=0) {
     $('#pValve').text('Открытие задвижек...')
     $('#pValve').removeClass('text-success')
     $('#pValve').addClass('text-body')
@@ -112,6 +112,8 @@ function startInit(btn) {
     $('.progress-bar').css('width', '0%');
 
     $('#irrigOn').modal('show')
+
+
 
     setTimeout(function(){
         $('#spValve').hide()
@@ -161,20 +163,41 @@ function startInit(btn) {
 };
 
 
+//Замыкание 2х реле
 function reqRele(btnClick) {
-    let url = '/btnclick/?contr=' + btnClick.slice(3, 4)  + '&rele1=' + btnClick.slice(5, 6) + '&rele2=' + btnClick.slice(7)
+    let url = '/btnclick/?contr=' + btnClick.slice(3, 4)  + '&rele1=' + btnClick.slice(5, 6) + '&rele2='
+        + btnClick.slice(7)
     btnDisable(true, btnClick.slice(3, 4))
     $.ajax({
         url: url,
         type: 'GET',
         success: function (response) {
-            if (response != 'False') {
+            if (response != 'Fail') {
                 btnEnable(true, btnClick.slice(3, 4))
+            }
+            else {
+                $('#mal1').text('Контроллер не доступен');
+                $('#cntr4').removeClass('bg-success')
+                $('#cntr4').addClass('bg-danger')
+                $('#modAlert').modal('show');
             }
         }
     });
 }
 
+//Замыкание одного реле
+function sinRele(contr, rele, status) {
+    let url = '/singlerele/?contr=' + contr + '&rele=' + rele + '&status=' + status
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (response) {
+            return(response)
+        }
+    })
+}
+
+//Блокировка кнопок
 function btnDisable(all= false, btn= 0) {
     if (all == false) {
         $('#' + btn).prop("disabled", true);
@@ -191,6 +214,7 @@ function btnDisable(all= false, btn= 0) {
     }
 }
 
+//Разблокировка кнопок
 function btnEnable(all = false, btn = 0) {
     if (all == false) {
         $('#' + btn).prop("disabled", false);

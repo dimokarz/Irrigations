@@ -12,8 +12,8 @@
                             <div class="row">
                                 <div class="col-6"><h5>{{ valley.status_valley }}</h5></div>
                                 <div class="col">
-                                    <span class="badge bg-success" style="width: 100px;
-                                        margin-top: 7px;">Управление</span>
+                                    <span class="badge bg-success" id="cntr{{ valley.status_valley_id }}"
+                                        style="width: 100px; margin-top: 7px;">Управление</span>
                                 </div>
                                 <div class="col">
                                     {% if valley.status_fail == True %}
@@ -163,7 +163,7 @@
                 <div class="card-header" style="background: #e6e6e6;">
                     <div class="col-6"><h5>Журнал</h5></div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="padding-top: 8px; padding-bottom: 8px;">
                     123<br>
                     123<br>
                     123<br>
@@ -172,7 +172,7 @@
                     123<br>
                     123<br>
                     123<br>
-
+                    123<br>
                 </div>
             </div>
 

@@ -25,6 +25,8 @@ $('.btn').on('click', function(e) {
                 if (valStatus.wat == 'True') {
                     valStatus.valve1 = 'True'
                     valStatus.valve2 = 'True'
+                    // startInit(valleyNumber)
+                    sinRele(valleyNumber, 14, 1)
                     startInit(valleyNumber)
                 }
                 else {
@@ -54,6 +56,10 @@ $('.btn').on('click', function(e) {
             valStatus.sis = 'False'
             valStatus.valve1 = 'False'
             valStatus.valve2 = 'False'
+            reqRele(e.target.id)
+            setTimeout(function () {
+                sinRele(valleyNumber, 14, 0)
+            }, 3000);
             dataSave()
             indEdit('All', 'bg-success', 'bg-danger')
             toastInit('bg-success', 'Система остановлена');
