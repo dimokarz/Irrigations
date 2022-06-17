@@ -67,3 +67,8 @@ def singlerele(request):
     rele = int(rele) + 30
     status = request.GET.get('status')
     return HttpResponse(pin1Rele(addr, rele, status))
+
+def readpin(request):
+    addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
+    pin = request.GET.get('pin')
+    return HttpResponse(pinInput(addr, pin))

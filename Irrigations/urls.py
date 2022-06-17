@@ -24,6 +24,7 @@ admin.site.index_title = 'Администрирование систем пол
 urlpatterns = [
     path('login/', authView.LoginView.as_view(template_name='login.html')),
     path('logout/', authView.LoginView.as_view(template_name='index.html')),
+    path('readpin/', valley.views.readpin),
     path('singlerele/', valley.views.singlerele),
     path('btnclick/', valley.views.btnclick),
     path('whichrun/', valley.views.whichrun),

@@ -230,3 +230,28 @@ function btnEnable(all = false, btn = 0) {
         $('#btn' + btn + '_8-12').prop("disabled", false);
     }
 }
+
+    function foo() {
+        readPins(1, 15)
+    }
+
+//Чтение входов
+function readPins(contr, pin) {
+    let url = '/readpin/?contr=' + contr + '&pin=' + pin
+    $.ajax({
+        url, url,
+        type: 'GET',
+        success: function (response) {
+            if (response == 0) {
+                $('#cntr' + contr).removeClass('bg-danger');
+                $('#cntr' + contr).addClass('bg-success');
+                btnEnable(true, 1)
+            }
+            else {
+                $('#cntr' + contr).removeClass('bg-success');
+                $('#cntr' + contr).addClass('bg-danger');
+                btnDisable(true, 1)
+            }
+        }
+    })
+}

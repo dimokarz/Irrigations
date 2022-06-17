@@ -3,5 +3,8 @@ let valStatus = {'id': '', 'run': 'False', 'dir': '-', 'wat': 'False', 'sis': 'F
 
 
 $(document).ready(function() {
-
+    let intertval1 = setInterval(foo, 2000)
+    function foo() {
+        readPins(1, 15)
+    }
 });
