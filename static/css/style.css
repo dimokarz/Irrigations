@@ -7,6 +7,12 @@
     padding-left: 15px;
 }
 
+.login-card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+}
+
 @font-face {
     font-family: 'Digital-7';
     font-style: normal;

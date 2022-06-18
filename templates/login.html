@@ -2,16 +2,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-    <div class="container" style="width: 500px;">
-        <h5>Введите имя пользователя и пароль.</h5>
-        <br>
+    <div class="card shad_box" style="width: 700px; opacity: 0.91;">
+        <div class="card-header">
+            <h4 style="margin-top: 5px;">Введите имя пользователя и пароль:</h4>
+        </div>
+        <div class="card-body">
         <form method="post">
              {% csrf_token %}
             {{ form|crispy }}
-            <br>
-            <button class="btn btn-primary">Войти</button>
+            <br><br>
+            <button class="btn btn-primary" style="width: 100%">Войти</button>
         </form>
+        </div>
     </div>
 
 {% endblock content %}

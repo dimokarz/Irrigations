@@ -3,8 +3,15 @@ let valStatus = {'id': '', 'run': 'False', 'dir': '-', 'wat': 'False', 'sis': 'F
 
 
 $(document).ready(function() {
-    let intertval1 = setInterval(foo, 2000)
-    function foo() {
-        readPins(1, 15)
+    if (document.location.href.replace(/(.+\w\/)(.+)/,"/$2") == '/?next=/') {
+        $('body').css('background-size', 'cover')
+        $('body').css('background-image', 'url(/static/img/valley.jpg)');
+    }
+    else {
+        $('body').css('background-image', '');
+        // let intertval1 = setInterval(foo, 2000)
+        // function foo() {
+        //     readPins(1, 15)
+        // }
     }
 });
