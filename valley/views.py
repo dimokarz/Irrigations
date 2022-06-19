@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Valley, Status
+from .models import Valley, Status, Journal
 from .control import ControlSimple
 from .arduino import *
 from surveillance.trassir import *
@@ -24,12 +24,15 @@ def simple(request):
         second = request.GET.get('second')[5:]
         valleyLst = Status.objects.all().in_bulk([first, second]).values()
         cam = VideoUrl(first, second)
+        journal = Journal.objects.all().filter(journal_valley__in=(first, second)).order_by('-journal_date')[:7]
     else:
         valleyLst = Status.objects.all().in_bulk([first]).values()
         cam = VideoUrl(first, 0)
+        journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     title = ' - Управление'
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-                                           'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'vCamMain': cam.valleyMain})
+                                           'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'journal': journal})
+
 
 @login_required
 def whichrun(request):
@@ -39,6 +42,7 @@ def whichrun(request):
         if run['status_run']:
             running.append(run['status_valley_id'])
     return HttpResponse(running)
+
 
 @login_required
 def statussave(request):
@@ -50,6 +54,7 @@ def statussave(request):
     currData.save()
     return HttpResponse('Ok')
 
+
 @login_required
 def btnclick(request):
     addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
@@ -57,8 +62,8 @@ def btnclick(request):
     rele1 = int(rele1) + 30
     rele2 = request.GET.get('rele2')
     rele2 = int(rele2) + 30
-    ttt = str(rele1) + '-' + str(rele2)
     return HttpResponse(pin2Rele(addr, rele1, rele2))
+
 
 @login_required
 def singlerele(request):
@@ -68,6 +73,8 @@ def singlerele(request):
     status = request.GET.get('status')
     return HttpResponse(pin1Rele(addr, rele, status))
 
+
+@login_required
 def readpin(request):
     addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
     pin = request.GET.get('pin')

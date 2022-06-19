@@ -113,8 +113,6 @@ function startInit(cntr=0) {
 
     $('#irrigOn').modal('show')
 
-
-
     setTimeout(function(){
         $('#spValve').hide()
         $('#pValve').removeClass('text-body');

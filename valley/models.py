@@ -1,8 +1,8 @@
 from django.db import models
 from surveillance.models import VideoSrv
 
-class Pump(models.Model):
 
+class Pump(models.Model):
     class Meta:
         verbose_name = 'Насос'
         verbose_name_plural = 'Насосы'
@@ -16,7 +16,6 @@ class Pump(models.Model):
 
 
 class Valley(models.Model):
-
     class Meta:
         verbose_name = 'Система полива'
         verbose_name_plural = 'Системы полива'
@@ -31,13 +30,11 @@ class Valley(models.Model):
                                         verbose_name='Видео сервер', null=True)
     valley_camera = models.CharField(max_length=8, verbose_name='Камера', null=True)
 
-
     def __str__(self):
         return self.valley_name
 
 
 class Status(models.Model):
-
     class Meta:
         verbose_name = 'Состояние системы'
         verbose_name_plural = 'Состояния систем'
@@ -56,6 +53,26 @@ class Status(models.Model):
     status_valve2 = models.BooleanField(default=False, verbose_name='Задвижка 2')
 
 
+class Journal(models.Model):
+
+    class Meta:
+        verbose_name = 'Журналы'
+        verbose_name_plural = 'Журнал'
+
+    journal_date = models.DateTimeField(auto_now=True, verbose_name='Дата')
+    journal_valley = models.ForeignKey(Valley, on_delete=models.CASCADE, verbose_name='Система', null=True)
+    ACTIONS = [('R', 'Запуск'), ('S', 'Остановка')]
+    journal_act = models.CharField(max_length=1, choices=ACTIONS, default='S', verbose_name='Действия')
 
 
+class JDetails(models.Model):
 
+    class Meta:
+        verbose_name = 'Запись журнала'
+        verbose_name_plural = 'Строки журнала'
+
+    jdetails_journal = models.OneToOneField(Journal, on_delete=models.CASCADE, related_name='details', verbose_name='Строки')
+    DIRECTIONS = [('N', '-'), ('F', 'Вперёд'), ('R', 'Назад')]
+    jdetails_dir = models.CharField(max_length=1, choices=DIRECTIONS, default='N', verbose_name='Направление')
+    jdetails_wat = models.BooleanField(default=False, verbose_name='Вода')
+    jdetails_sis = models.BooleanField(default=False, verbose_name='АвтоСтоп')
