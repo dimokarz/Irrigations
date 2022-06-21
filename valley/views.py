@@ -82,8 +82,9 @@ def readpin(request):
     return HttpResponse(pinInput(addr, pin))
 
 def laurele(request):
-    contr = Valley.objects.get(id=request.GET.get('contr')).valley_pump_id
-    addr = Pump.objects.get(id=contr).pump_addr
-    rele = request.GET.get('rele')
+    contr = Valley.objects.get(id=request.GET.get('contr'))
+    addr = Pump.objects.get(id=contr.valley_pump_id).pump_addr
+    rele = contr.valley_rele
+    print(rele)
     stat = request.GET.get('status')
     return HttpResponse(lauRele(addr, rele, stat))
