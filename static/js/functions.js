@@ -195,6 +195,17 @@ function sinRele(contr, rele, status) {
     })
 }
 
+function lauRele(contr, rele, status) {
+    let url = '/laurele/?contr=' + contr + '&rele=' + rele + '&status=' + status
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (response) {
+            return(response)
+        }
+    })
+}
+
 //Блокировка кнопок
 function btnDisable(all= false, btn= 0) {
     if (all == false) {

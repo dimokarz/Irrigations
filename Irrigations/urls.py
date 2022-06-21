@@ -26,6 +26,7 @@ urlpatterns = [
     path('logout/', authView.LoginView.as_view(template_name='index.html')),
     path('readpin/', valley.views.readpin),
     path('singlerele/', valley.views.singlerele),
+    path('laurele/', valley.views.laurele),
     path('btnclick/', valley.views.btnclick),
     path('whichrun/', valley.views.whichrun),
     path('statussave/', valley.views.statussave),

@@ -10,9 +10,8 @@ $(document).ready(function() {
             break
         case '/simple/':
             $('body').css('background-image', '')
-            // let intertval1 = setInterval(foo, 2000)
-            // function foo() {
-            //     readPins(1, 15)
+            let intertval1 = setInterval(foo, 2000)
+            function foo() {readPins(1, 15)}
             break
         default:
             $('body').css('background-image', '')

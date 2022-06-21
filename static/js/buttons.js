@@ -27,7 +27,9 @@ $('.btn').on('click', function(e) {
                     valStatus.valve2 = 'True'
                     // startInit(valleyNumber)
                     sinRele(valleyNumber, 14, 1)
+                    lauRele(valleyNumber, 1, 1)
                     startInit(valleyNumber)
+
                 }
                 else {
                     indEdit('dirInd','bg-danger', 'bg-success')
@@ -59,7 +61,8 @@ $('.btn').on('click', function(e) {
             reqRele(e.target.id)
             setTimeout(function () {
                 sinRele(valleyNumber, 14, 0)
-            }, 3000);
+                lauRele(valleyNumber, 1, 0)
+            }, 2000);
             dataSave()
             indEdit('All', 'bg-success', 'bg-danger')
             toastInit('bg-success', 'Система остановлена');

@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Valley, Status, Journal
+from .models import Valley, Status, Journal, Pump
 from .control import ControlSimple
 from .arduino import *
 from surveillance.trassir import *
+from .laurent import *
 
 
 @login_required
@@ -79,3 +80,10 @@ def readpin(request):
     addr = Valley.objects.get(id=request.GET.get('contr')).valley_addr
     pin = request.GET.get('pin')
     return HttpResponse(pinInput(addr, pin))
+
+def laurele(request):
+    contr = Valley.objects.get(id=request.GET.get('contr')).valley_pump_id
+    addr = Pump.objects.get(id=contr).pump_addr
+    rele = request.GET.get('rele')
+    stat = request.GET.get('status')
+    return HttpResponse(lauRele(addr, rele, stat))
