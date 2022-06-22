@@ -1,0 +1,16 @@
+<table class="table table-sm table-hover">
+    <tbody>
+        {% for jourLst in journal %}
+            <tr>
+                <th scope="row">&nbsp;{{ forloop.counter }}</th>
+                <td width="40%">&nbsp;{{ jourLst.journal_date }}</td>
+                <td class="bg-light" width="30%" >&nbsp;{{ jourLst.journal_valley }}</td>
+                {% if jourLst.journal_act == "S" %}
+                    <td  class="bg-danger bg-opacity-25" width="30%">Остановка</td>
+                {% else %}
+                    <td  class="bg-success bg-opacity-25" width="30%">Запуск</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

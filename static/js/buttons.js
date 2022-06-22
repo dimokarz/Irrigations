@@ -25,6 +25,7 @@ $('.btn').on('click', function(e) {
                 if (valStatus.wat == 'True') {
                     valStatus.valve1 = 'True'
                     valStatus.valve2 = 'True'
+                    valStatus.fail = 'True'
                     // startInit(valleyNumber)
                     sinRele(valleyNumber, 14, 1)
                     lauRele(valleyNumber, 1, 1)
@@ -32,6 +33,7 @@ $('.btn').on('click', function(e) {
 
                 }
                 else {
+                    reqRele('btn' + valleyNumber + '_7-9')
                     indEdit('dirInd','bg-danger', 'bg-success')
                     toastInit('bg-success', 'Система запущена без подачи воды');
                 }
@@ -44,6 +46,8 @@ $('.btn').on('click', function(e) {
                 valStatus.sis = 'False'
                 valStatus.valve1 = 'False'
                 valStatus.valve2 = 'False'
+                valStatus.fail = 'False'
+
             }
             break;
         // Стоп
@@ -61,10 +65,12 @@ $('.btn').on('click', function(e) {
             reqRele(e.target.id)
             setTimeout(function () {
                 sinRele(valleyNumber, 14, 0)
+                sinRele(valleyNumber, 15, 0)
                 lauRele(valleyNumber, 1, 0)
             }, 2000);
             dataSave()
             indEdit('All', 'bg-success', 'bg-danger')
+            indEdit('fail','bg-success', 'bg-danger')
             toastInit('bg-success', 'Система остановлена');
             break;
         // Направление
@@ -100,6 +106,10 @@ $('.btn').on('click', function(e) {
             valStatus.sis = 'False'
             reqRele(e.target.id)
             break;
+        case 'btn_p2' + valleyNumber:
+            alert(e.target.id)
+            sinRele(valleyNumber, 13, 1)
+            break
     }
 });
 

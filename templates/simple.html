@@ -27,6 +27,7 @@
                             </div>
                         </div>
                         <div class="card-body">
+                        <p id="card{{ forloop.counter }}" style="display: none">{{ valley.status_valley_id }}</p>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="row">
@@ -109,7 +110,7 @@
                                     <hr style="margin-top: -10px;">
                                     <div class="row">
                                         <div class="col-4">
-                                           <button type="button" id="btn_p2{{i}}"
+                                           <button type="button" id="btn_p2{{ valley.status_valley_id }}"
                                                    class="btn btn_round btn-danger bi bi-power"></button>
                                         </div>
                                         <div class="col-4">
@@ -149,6 +150,7 @@
                 </div>
 
             {% endif %}
+
         {% endfor %}
         <div class="col-4">
             <div class="card shad_box">
@@ -197,7 +199,7 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
           <div class="accordion-body">
-
+              Контроллер не доступен
           </div>
         </div>
       </div>

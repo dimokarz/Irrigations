@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Valley, Status, Journal, Pump
+from .models import Valley, Status, Journal, Pump, JDetails
 from .control import ControlSimple
 from .arduino import *
 from surveillance.trassir import *
@@ -51,7 +51,17 @@ def statussave(request):
     currData = Status(status_valley=valleyId, status_ctrl=True, status_run=request.GET.get('run'),
                       status_dir=request.GET.get('dir'), status_wat=request.GET.get('wat'),
                       status_sis=request.GET.get('sis'), status_valve1=request.GET.get('valve1'),
-                      status_valve2=request.GET.get('valve2'))
+                      status_valve2=request.GET.get('valve2'), status_fail=request.GET.get('fail'))
+    currData.save()
+    if request.GET.get('run') == 'False':
+        act = 'S'
+    else:
+        act = 'R'
+    currData = Journal(journal_valley=valleyId, journal_act=act)
+    currData.save()
+    lastRec = Journal.objects.order_by('pk').last()
+    currData = JDetails(jdetails_journal=lastRec, jdetails_dir=request.GET.get('dir'),
+                        jdetails_wat=request.GET.get('wat'), jdetails_sis=request.GET.get('sis'))
     currData.save()
     return HttpResponse('Ok')
 
@@ -81,10 +91,21 @@ def readpin(request):
     pin = request.GET.get('pin')
     return HttpResponse(pinInput(addr, pin))
 
+
 def laurele(request):
     contr = Valley.objects.get(id=request.GET.get('contr'))
     addr = Pump.objects.get(id=contr.valley_pump_id).pump_addr
     rele = contr.valley_rele
-    print(rele)
     stat = request.GET.get('status')
     return HttpResponse(lauRele(addr, rele, stat))
+
+
+
+def minijourn(request):
+    first = request.GET.get('first')
+    if request.GET.get('second') is not None:
+        second = request.GET.get('second')[5:]
+        journal = Journal.objects.all().filter(journal_valley__in=(first, second)).order_by('-journal_date')[:7]
+    else:
+        journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
+    return render(request, 'minijourn.html', {'journal': journal})

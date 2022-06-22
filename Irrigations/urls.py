@@ -31,6 +31,7 @@ urlpatterns = [
     path('whichrun/', valley.views.whichrun),
     path('statussave/', valley.views.statussave),
     path('simple/', valley.views.simple),
+    path('minijourn/', valley.views.minijourn),
     path('', valley.views.index),
     path('admin/', admin.site.urls),
 ]

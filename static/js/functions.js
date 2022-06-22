@@ -158,6 +158,11 @@ function startInit(cntr=0) {
     setTimeout(function () {
         toastInit('bg-success', 'Система запущена с подачей воды');
     }, 6000);
+    setTimeout(function () {
+        sinRele(valleyNumber, 15, 1)
+        indEdit('fail','bg-danger' , 'bg-success')
+        toastInit('bg-success', 'Включен аварийный режим');
+    }, 15000);
 };
 
 
@@ -195,6 +200,7 @@ function sinRele(contr, rele, status) {
     })
 }
 
+//Lauran Rele
 function lauRele(contr, rele, status) {
     let url = '/laurele/?contr=' + contr + '&rele=' + rele + '&status=' + status
     $.ajax({
@@ -240,11 +246,17 @@ function btnEnable(all = false, btn = 0) {
     }
 }
 
-    function foo() {
-        readPins(1, 15)
-    }
 
 //Чтение входов
+function foo() {
+    let contr1 = $('#card1').text()
+    let contr2 = $('#card2').text()
+    readPins(contr1, 15)
+    if (contr2 =! '') {
+        alert('нэма')
+        readPins(contr2, 15)
+    }
+}
 function readPins(contr, pin) {
     let url = '/readpin/?contr=' + contr + '&pin=' + pin
     $.ajax({
@@ -263,4 +275,9 @@ function readPins(contr, pin) {
             }
         }
     })
+}
+
+//Минижурнал
+function miniJournal() {
+
 }
