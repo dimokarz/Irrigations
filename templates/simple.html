@@ -166,24 +166,8 @@
                 <div class="card-header" style="background: #e6e6e6;">
                     <div class="col-6"><h5>Журнал</h5></div>
                 </div>
-                <div class="card-body" style="padding: 0px; height: 230px">
-                    <table class="table table-sm table-hover">
-                        <tbody>
-                            {% for jourLst in journal %}
-                                <tr>
-                                    <th scope="row">&nbsp;{{ forloop.counter }}</th>
-                                    <td width="40%">&nbsp;{{ jourLst.journal_date }}</td>
-                                    <td class="bg-light" width="30%" >&nbsp;{{ jourLst.journal_valley }}</td>
-                                        {% if jourLst.journal_act == "S" %}
-                                            <td  class="bg-danger bg-opacity-25" width="30%">Остановка</td>
-                                        {% else %}
-                                            <td  class="bg-success bg-opacity-25" width="30%">Запуск</td>
-                                        {% endif %}
-
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                <div id="minijourn"class="card-body" style="padding: 0px; height: 230px">
+                    {% include "minijourn.html" %}
                 </div>
             </div>
 
@@ -200,6 +184,7 @@
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
           <div class="accordion-body">
               Контроллер не доступен
+              <button id="btttn" class="btn">TTT</button>
           </div>
         </div>
       </div>

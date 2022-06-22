@@ -279,5 +279,12 @@ function readPins(contr, pin) {
 
 //Минижурнал
 function miniJournal() {
-
+    let journFilter = {'first': $('#card1').text(), 'second': $('#card2').text()}
+    $.ajax({
+        url: '/minijourn',
+        data: journFilter,
+        success: function (data) {
+            $('#minijourn').html(data)
+        }
+    })
 }

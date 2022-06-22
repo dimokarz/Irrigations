@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pump, Valley, Status, Journal, JDetails
+from .models import Pump, Valley, Status, Journal
 
 
 @admin.register(Valley)
@@ -18,8 +18,3 @@ class ValleyAdmin(admin.ModelAdmin):
 @admin.register(Journal)
 class ValleyAdmin(admin.ModelAdmin):
     list_display = ['journal_date', 'journal_valley', 'journal_act']
-
-
-@admin.register(JDetails)
-class ValleyAdmin(admin.ModelAdmin):
-    list_display = ['jdetails_journal', 'jdetails_dir']

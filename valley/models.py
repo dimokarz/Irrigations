@@ -61,18 +61,10 @@ class Journal(models.Model):
 
     journal_date = models.DateTimeField(auto_now=True, verbose_name='Дата')
     journal_valley = models.ForeignKey(Valley, on_delete=models.CASCADE, verbose_name='Система', null=True)
+    journal_user = models.CharField(max_length=20, default='admin', verbose_name='Пользователь')
     ACTIONS = [('R', 'Запуск'), ('S', 'Остановка')]
     journal_act = models.CharField(max_length=1, choices=ACTIONS, default='S', verbose_name='Действия')
-
-
-class JDetails(models.Model):
-
-    class Meta:
-        verbose_name = 'Запись журнала'
-        verbose_name_plural = 'Строки журнала'
-
-    jdetails_journal = models.OneToOneField(Journal, on_delete=models.CASCADE, related_name='details', verbose_name='Строки')
     DIRECTIONS = [('N', '-'), ('F', 'Вперёд'), ('R', 'Назад')]
-    jdetails_dir = models.CharField(max_length=1, choices=DIRECTIONS, default='N', verbose_name='Направление')
-    jdetails_wat = models.BooleanField(default=False, verbose_name='Вода')
-    jdetails_sis = models.BooleanField(default=False, verbose_name='АвтоСтоп')
+    journal_dir = models.CharField(max_length=1, choices=DIRECTIONS, default='N', verbose_name='Направление')
+    journal_wat = models.BooleanField(default=False, verbose_name='Вода')
+    journal_sis = models.BooleanField(default=False, verbose_name='АвтоСтоп')

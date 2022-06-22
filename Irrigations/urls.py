@@ -32,6 +32,9 @@ urlpatterns = [
     path('statussave/', valley.views.statussave),
     path('simple/', valley.views.simple),
     path('minijourn/', valley.views.minijourn),
+    path('journal/', valley.views.journal),
+    path('journlst/', valley.views.journlst),
+    path('journfilt/', valley.views.journfilt),
     path('', valley.views.index),
     path('admin/', admin.site.urls),
 ]

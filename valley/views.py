@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Valley, Status, Journal, Pump, JDetails
+from django.contrib.auth.models import User
+from .models import Valley, Status, Journal, Pump
 from .control import ControlSimple
 from .arduino import *
 from surveillance.trassir import *
@@ -57,11 +58,9 @@ def statussave(request):
         act = 'S'
     else:
         act = 'R'
-    currData = Journal(journal_valley=valleyId, journal_act=act)
-    currData.save()
-    lastRec = Journal.objects.order_by('pk').last()
-    currData = JDetails(jdetails_journal=lastRec, jdetails_dir=request.GET.get('dir'),
-                        jdetails_wat=request.GET.get('wat'), jdetails_sis=request.GET.get('sis'))
+    currData = Journal(journal_valley=valleyId, journal_act=act, journal_user=request.user.get_username(),
+                       journal_dir=request.GET.get('dir'), journal_wat=request.GET.get('wat'),
+                       journal_sis=request.GET.get('sis'))
     currData.save()
     return HttpResponse('Ok')
 
@@ -100,12 +99,24 @@ def laurele(request):
     return HttpResponse(lauRele(addr, rele, stat))
 
 
-
 def minijourn(request):
     first = request.GET.get('first')
     if request.GET.get('second') is not None:
-        second = request.GET.get('second')[5:]
+        second = request.GET.get('second')
         journal = Journal.objects.all().filter(journal_valley__in=(first, second)).order_by('-journal_date')[:7]
     else:
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     return render(request, 'minijourn.html', {'journal': journal})
+
+
+def journlst(request):
+    return render(request, 'journlst.html')
+
+
+def journal(request):
+    journ = Journal.objects.all().order_by('-journal_date')
+    return render(request, 'journal.html', {'journLst': journ})
+
+
+def journfilt(request):
+    pass

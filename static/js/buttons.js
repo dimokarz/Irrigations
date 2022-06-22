@@ -39,6 +39,7 @@ $('.btn').on('click', function(e) {
                 }
                 if (valStatus.sis == 'True') { indEdit('sisInd','bg-danger', 'bg-success') }
                 dataSave()
+                miniJournal()
                 valStatus.id = valleyNumber
                 valStatus.run = 'False'
                 valStatus.dir = '-'
@@ -69,6 +70,7 @@ $('.btn').on('click', function(e) {
                 lauRele(valleyNumber, 1, 0)
             }, 2000);
             dataSave()
+            miniJournal()
             indEdit('All', 'bg-success', 'bg-danger')
             indEdit('fail','bg-success', 'bg-danger')
             toastInit('bg-success', 'Система остановлена');

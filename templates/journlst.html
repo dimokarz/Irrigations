@@ -1,0 +1,45 @@
+<table class="table table-sm align-left table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Дата\Время</th>
+            <th scope="col">Система</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Действие</th>
+            <th scope="col">Направление</th>
+            <th scope="col">Вода</th>
+            <th scope="col">Автостоп</th>
+        </tr>
+    </thead>
+        {% for row in journLst %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ row.journal_date }}</td>
+                <td><strong>{{ row.journal_valley }}</td></strong>
+                <td>{{ row.journal_user }}</td>
+                {% if row.journal_act == "R" %}
+                    <td  class="bg-success bg-opacity-25">Запуск</td>
+                    {% if row.journal_dir == "F" %}
+                        <td>Вперёд</td>
+                    {% else %}
+                        <td>Назад</td>
+                    {% endif %}
+                    {% if row.journal_wat == True %}
+                        <td>Вкл</td>
+                    {% else %}
+                        <td>Выкл</td>
+                    {% endif %}
+                    {% if row.journal_sis == True %}
+                        <td>Вкл</td>
+                    {% else %}
+                        <td>Выкл</td>
+                    {% endif %}
+                {% else %}
+                    <td  class="bg-danger bg-opacity-25">Остановка</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+</table>
