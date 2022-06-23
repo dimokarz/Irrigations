@@ -120,3 +120,6 @@ def journal(request):
 
 def journfilt(request):
     pass
+
+def test(request):
+    return render(request, 'test.html')
