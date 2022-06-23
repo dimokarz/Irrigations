@@ -116,6 +116,10 @@ $('.btn').on('click', function(e) {
 });
 
 //Открытие камеры
-$('img').on('click', function(e) {
-    $('#modCam1').modal("show")
+$('.img_fit').on('click', function(e) {
+    let camId = e.target.id
+    let imgSrc = $('#' + camId).attr('src');
+    // $('#full').attr('src', imgSrc)
+    $('#modBody').css("background-image", "url(" + imgSrc + ")")
+    $('#modCam').modal("show")
 });

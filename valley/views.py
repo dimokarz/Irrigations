@@ -25,15 +25,17 @@ def simple(request):
     if request.GET.get('second') is not None:
         second = request.GET.get('second')[5:]
         valleyLst = Status.objects.all().in_bulk([first, second]).values()
-        cam = VideoUrl(first, second)
+        # cam = VideoUrl(first, second)
         journal = Journal.objects.all().filter(journal_valley__in=(first, second)).order_by('-journal_date')[:7]
     else:
         valleyLst = Status.objects.all().in_bulk([first]).values()
-        cam = VideoUrl(first, 0)
+        # cam = VideoUrl(first, 0)
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     title = ' - Управление'
+    # return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
+    #                                        'pCam': cam.pumpMain, 'vCam': cam.valleyMain, 'journal': journal})
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-                                           'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'journal': journal})
+                                           'journal': journal})
 
 
 @login_required
