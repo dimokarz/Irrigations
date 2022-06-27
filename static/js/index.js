@@ -1,5 +1,6 @@
 let valStatus = {'id': '', 'run': 'False', 'dir': '-', 'wat': 'False', 'sis': 'False',
     'valve1': 'False', 'valve2': 'False', 'fail': 'False'}
+let on_off = 0
 
 
 $(document).ready(function() {
@@ -9,9 +10,10 @@ $(document).ready(function() {
             $('body').css('background-image', 'url(/static/img/valley.jpg)')
             break
         case '/simple/':
+
             $('body').css('background-image', '')
             let intertval1 = setInterval(foo, 2000)
-            function foo() {readPins(1, 15)}
+            function foo() {readPins(5, 15)}
             break
         default:
             $('body').css('background-image', '')

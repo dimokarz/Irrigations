@@ -20,22 +20,29 @@ def index(request):
 
 @login_required
 def simple(request):
-    btnLst = ControlSimple().rusButtons
+    btnLst = ControlSimple().engButtons
     first = int(request.GET.get('first')[5:])
     if request.GET.get('second') is not None:
         second = request.GET.get('second')[5:]
         valleyLst = Status.objects.all().in_bulk([first, second]).values()
-        # cam = VideoUrl(first, second)
+        try:
+            cam = VideoUrl(first, second)
+        except:
+            cam = ''
         journal = Journal.objects.all().filter(journal_valley__in=(first, second)).order_by('-journal_date')[:7]
     else:
         valleyLst = Status.objects.all().in_bulk([first]).values()
-        # cam = VideoUrl(first, 0)
+        try:
+            cam = VideoUrl(first, 0)
+        except:
+            cam =''
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     title = ' - Управление'
-    # return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-    #                                        'pCam': cam.pumpMain, 'vCam': cam.valleyMain, 'journal': journal})
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
+                                           'pCam': cam.pumpMain, 'vCam': cam.valleyMain, 'pSids': cam.getSid,
                                            'journal': journal})
+    # return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
+    #                                        'journal': journal})
 
 
 @login_required

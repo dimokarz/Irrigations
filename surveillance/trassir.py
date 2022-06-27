@@ -11,6 +11,7 @@ class VideoUrl:
     def __init__(self, val1, val2):
         self._val1 = val1
         self._val2 = val2
+        self._sids = []
 
     def _videoDict(self, stream):
         _vall = []
@@ -25,19 +26,33 @@ class VideoUrl:
         for row in _vall:
             _sidUrl = 'https://{}:{}/login?username={}&password={}'.format(row.videosrv_addr, row.videosrv_http,
                                                                            row.videosrv_user, row.videosrv_password)
-            jdata = requests.get(_sidUrl, verify=False)
-            sid = json.loads(jdata.text)
-            sid = sid['sid']
+            try:
+                jdata = requests.get(_sidUrl, verify=False)
+                sid = json.loads(jdata.text)
+                sid = sid['sid']
+            except:
+                jdata = {}
+                sid = ''
             if i == 1:
-                _tokenUrl = 'https://{}:{}/get_video?channel={}&container=mjpeg&quality=70&stream={}&framerate=0&sid={}' \
-                    .format(row.videosrv_addr, row.videosrv_http, Valley.objects.get(id=self._val1).valley_camera, stream, sid)
+                if sid != '':
+                    _tokenUrl = 'https://{}:{}/get_video?channel={}&container=mjpeg&quality=70&stream={}&framerate=0&sid={}' \
+                        .format(row.videosrv_addr, row.videosrv_http, Valley.objects.get(id=self._val1).valley_camera, stream, sid)
+                else:
+                    _tokenUrl = ''
             else:
-                _tokenUrl = 'https://{}:{}/get_video?channel={}&container=mjpeg&quality=70&stream={}&framerate=0&sid={}' \
-                    .format(row.videosrv_addr, row.videosrv_http, Valley.objects.get(id=self._val2).valley_camera, stream, sid)
-            jdata = requests.get(_tokenUrl, verify=False)
-            token = json.loads(jdata.text)
-            token = token['token']
-            _urls.append('http://{}:{}/{}'.format(row.videosrv_addr, row.videosrv_video, token))
+                if sid != '':
+                    _tokenUrl = 'https://{}:{}/get_video?channel={}&container=mjpeg&quality=70&stream={}&framerate=0&sid={}' \
+                        .format(row.videosrv_addr, row.videosrv_http, Valley.objects.get(id=self._val2).valley_camera, stream, sid)
+                else:
+                    _tokenUrl = ''
+            if _tokenUrl != '':
+                jdata = requests.get(_tokenUrl, verify=False)
+                token = json.loads(jdata.text)
+                token = token['token']
+                _urls.append('http://{}:{}/{}'.format(row.videosrv_addr, row.videosrv_video, token))
+            else:
+                jdata = {}
+
             i += 1
         return _urls
 
@@ -46,6 +61,7 @@ class VideoUrl:
         jdata = requests.get(sidUrl, verify=False)
         sid = json.loads(jdata.text)
         sid = sid['sid']
+        self._sids.append(sid)
         url_token = \
             'https://192.168.1.100:18082/get_video?channel=bw1VN7ee&container=mjpeg&quality=90&stream={}&framerate=0&sid={}'.format(stream, sid)
         jdata = requests.get(url_token, verify=False)
@@ -68,6 +84,10 @@ class VideoUrl:
     @property
     def pumpMain(self):
         return self._pumpUrl('main')
+
+    @property
+    def getSid(self):
+        return self._sids
 
 
 # ttt1 = VideoUrl(1, 4)

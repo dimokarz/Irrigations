@@ -113,6 +113,7 @@ function startInit(cntr=0) {
 
     $('#irrigOn').modal('show')
 
+    // Открытие задвижек
     setTimeout(function(){
         $('#spValve').hide()
         $('#pValve').removeClass('text-body');
@@ -123,9 +124,10 @@ function startInit(cntr=0) {
         $('#pPump').addClass('text-body')
         indEdit('valve1','bg-danger', 'bg-success')
         indEdit('valve2','bg-danger', 'bg-success')
-        $('.progress-bar').css('width', '50%');
-    }, 2000);
+        $('.progress-bar').css('width', '75%');
+    }, 90000);
 
+    // Запуск насосса
     setTimeout(function () {
         $('#spPump').hide()
         $('#pPump').removeClass('text-body');
@@ -136,8 +138,9 @@ function startInit(cntr=0) {
         $('#pSystem').removeClass('text-secondary')
         $('#pSystem').addClass('text-body')
         $('.progress-bar').css('width', '75%')
-    }, 3000);
+    }, 93000);
 
+    // Запуск систем
     setTimeout(function(){
         $('#spSystem').hide()
         $('#pSystem').removeClass('text-body');
@@ -148,21 +151,22 @@ function startInit(cntr=0) {
         // $('#pSystem').removeClass('text-secondary')
         // $('#pSystem').addClass('text-body')
         $('.progress-bar').css('width', '100%');
-    }, 4000);
+    }, 97000);
 
     setTimeout(function () {
         $('#irrigOn').modal('hide')
         reqRele('btn' + valleyNumber + '_7-9')
-    }, 5000);
+    }, 98000);
 
+    //Аварийный режим
     setTimeout(function () {
         toastInit('bg-success', 'Система запущена с подачей воды');
-    }, 6000);
+    }, 98000);
     setTimeout(function () {
         sinRele(valleyNumber, 15, 1)
         indEdit('fail','bg-danger' , 'bg-success')
         toastInit('bg-success', 'Включен аварийный режим');
-    }, 15000);
+    }, 180000);
 };
 
 
@@ -202,7 +206,7 @@ function sinRele(contr, rele, status) {
 
 //Lauran Rele
 function lauRele(contr, rele, status) {
-    let url = '/laurele/?contr=' + contr + '&rele=' + rele + '&status=' + status
+    let url = '/laurele/?contr=' + '5' + '&rele=' + rele + '&status=' + status
     $.ajax({
         url: url,
         type: 'GET',
@@ -249,11 +253,10 @@ function btnEnable(all = false, btn = 0) {
 
 //Чтение входов
 function foo() {
-    let contr1 = $('#card1').text()
+    let contr1 = 5
     let contr2 = $('#card2').text()
     readPins(contr1, 15)
     if (contr2 =! '') {
-        alert('нэма')
         readPins(contr2, 15)
     }
 }
@@ -266,12 +269,14 @@ function readPins(contr, pin) {
             if (response == 0) {
                 $('#cntr' + contr).removeClass('bg-danger');
                 $('#cntr' + contr).addClass('bg-success');
-                btnEnable(true, 1)
+                if (on_off != 0){
+                    btnEnable(true, 5)
+                }
             }
             else {
                 $('#cntr' + contr).removeClass('bg-success');
                 $('#cntr' + contr).addClass('bg-danger');
-                btnDisable(true, 1)
+                btnDisable(true, 5)
             }
         }
     })

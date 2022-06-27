@@ -6,6 +6,7 @@ $(".form-check-input").on("click", function() {
 
 //Кнопки
 $('.btn').on('click', function(e) {
+    // alert(e.target.id)
     valleyNumber = e.target.id.slice(3,4)
     switch (e.target.id) {
         // Открыть панель управления
@@ -73,7 +74,11 @@ $('.btn').on('click', function(e) {
             miniJournal()
             indEdit('All', 'bg-success', 'bg-danger')
             indEdit('fail','bg-success', 'bg-danger')
-            toastInit('bg-success', 'Система остановлена');
+             if (valStatus.wat == 'True') {
+                 setTimeout(function () {
+                     toastInit('bg-success', 'Система остановлена');
+                 }, 90000)
+             }
             break;
         // Направление
         case 'btn' + valleyNumber + '_7-10':
@@ -108,10 +113,28 @@ $('.btn').on('click', function(e) {
             valStatus.sis = 'False'
             reqRele(e.target.id)
             break;
-        case 'btn_p2' + valleyNumber:
-            alert(e.target.id)
-            sinRele(valleyNumber, 13, 1)
+        case 'btn_p25':
+            // alert(valleyNumber)
+            if (on_off == 0) {
+                sinRele(5, 13, 1)
+                $('#btn_p25').removeClass('bg-danger')
+                $('#btn_p25').addClass('bg-success')
+                btnEnable(true, 5)
+                on_off = 1
+            }
+            else {
+                sinRele(5, 13, 0)
+                $('#btn_p25').removeClass('bg-success')
+                $('#btn_p25').addClass('bg-danger')
+                btnDisable(true, 5)
+                on_off = 0
+            }
             break
+        case 'btn5-stop':
+            sinRele(5, 14, 0)
+            sinRele(5, 15, 0)
+            lauRele(5, 1, 0)
+            break;
     }
 });
 

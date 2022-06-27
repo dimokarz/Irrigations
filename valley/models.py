@@ -56,8 +56,8 @@ class Status(models.Model):
 class Journal(models.Model):
 
     class Meta:
-        verbose_name = 'Журналы'
-        verbose_name_plural = 'Журнал'
+        verbose_name = 'Журнал'
+        verbose_name_plural = 'Журналы'
 
     journal_date = models.DateTimeField(auto_now=True, verbose_name='Дата')
     journal_valley = models.ForeignKey(Valley, on_delete=models.CASCADE, verbose_name='Система', null=True)
