@@ -27,11 +27,9 @@ $('.btn').on('click', function(e) {
                     valStatus.valve1 = 'True'
                     valStatus.valve2 = 'True'
                     valStatus.fail = 'True'
-                    // startInit(valleyNumber)
                     sinRele(valleyNumber, 14, 1)
                     lauRele(valleyNumber, 1, 1)
                     startInit(valleyNumber)
-
                 }
                 else {
                     reqRele('btn' + valleyNumber + '_7-9')
@@ -39,8 +37,8 @@ $('.btn').on('click', function(e) {
                     toastInit('bg-success', 'Система запущена без подачи воды');
                 }
                 if (valStatus.sis == 'True') { indEdit('sisInd','bg-danger', 'bg-success') }
-                dataSave()
-                miniJournal()
+                // dataSave()
+                // miniJournal()
                 valStatus.id = valleyNumber
                 valStatus.run = 'False'
                 valStatus.dir = '-'
@@ -142,6 +140,7 @@ $('.btn').on('click', function(e) {
 $('.img_fit').on('click', function(e) {
     let camId = e.target.id
     let imgSrc = $('#' + camId).attr('src');
+    imgSrc = imgSrc.replace("sub", "main")
     // $('#full').attr('src', imgSrc)
     $('#modBody').css("background-image", "url(" + imgSrc + ")")
     $('#modCam').modal("show")

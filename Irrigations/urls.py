@@ -36,6 +36,7 @@ urlpatterns = [
     path('journlst/', valley.views.journlst),
     path('journfilt/', valley.views.journfilt),
     path('test/', valley.views.test),
+    path('lauin/', valley.views.lauin),
     path('', valley.views.index),
     path('admin/', admin.site.urls),
 ]

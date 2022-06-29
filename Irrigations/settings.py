@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'channels',
     'crispy_forms',
     'crispy_bootstrap5',
     'valley',
-    'surveillance'
+    'surveillance',
+    # 'background_task',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Irrigations.wsgi.application'
-
+ASGI_APPLICATION = 'valley.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -139,3 +141,9 @@ LOGIN_URL = 'login/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels.layers.InMemoryChannelLayer"
+#     },
+# }

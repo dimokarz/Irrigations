@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from urllib.request import urlopen
+from xml.etree.ElementTree import parse
 from .models import Valley, Status, Journal, Pump
 from .control import ControlSimple
 from .arduino import *
@@ -35,14 +37,14 @@ def simple(request):
         try:
             cam = VideoUrl(first, 0)
         except:
-            cam =''
+            cam = ''
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     title = ' - Управление'
-    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-                                           'pCam': cam.pumpMain, 'vCam': cam.valleyMain, 'pSids': cam.getSid,
-                                           'journal': journal})
     # return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
+    #                                        'pCam': cam.pumpMain, 'vCam': cam.valleyMain, 'pSids': cam.getSid,
     #                                        'journal': journal})
+    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
+                                           'journal': journal})
 
 
 @login_required
@@ -130,5 +132,17 @@ def journal(request):
 def journfilt(request):
     pass
 
+
 def test(request):
     return render(request, 'test.html')
+
+
+def lauin(request):
+    contr = request.GET.get('contr')
+    str_url = 'http://192.168.1.107/state.xml'
+    lauXml = urlopen(str_url)
+    xmldoc = parse(lauXml)
+    inputs = xmldoc.findtext('in')
+    ### Температура
+    result = round(float(xmldoc.findtext('temp')), 1)
+    return HttpResponse(inputs[0])

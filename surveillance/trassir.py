@@ -57,17 +57,17 @@ class VideoUrl:
         return _urls
 
     def _pumpUrl(self, stream):
-        sidUrl = 'https://192.168.1.100:18082/login?username=Test&password=12345'
-        jdata = requests.get(sidUrl, verify=False)
-        sid = json.loads(jdata.text)
-        sid = sid['sid']
-        self._sids.append(sid)
-        url_token = \
-            'https://192.168.1.100:18082/get_video?channel=bw1VN7ee&container=mjpeg&quality=90&stream={}&framerate=0&sid={}'.format(stream, sid)
-        jdata = requests.get(url_token, verify=False)
-        token = json.loads(jdata.text)
-        token = token['token']
-        return 'http://192.168.1.100:1557/' + token
+        # sidUrl = 'https://192.168.1.100:18082/login?username=Test&password=12345'
+        # jdata = requests.get(sidUrl, verify=False)
+        # sid = json.loads(jdata.text)
+        # sid = sid['sid']
+        # self._sids.append(sid)
+        # url_token = \
+        #     'https://192.168.1.100:18082/get_video?channel=bw1VN7ee&container=mjpeg&quality=90&stream={}&framerate=0&sid={}'.format(stream, sid)
+        # jdata = requests.get(url_token, verify=False)
+        # token = json.loads(jdata.text)
+        # token = token['token']
+        return 'http://192.168.1.100:1557/bw1VN7ee?container=mjpeg&stream=sub'
 
     @property
     def valleySub(self):

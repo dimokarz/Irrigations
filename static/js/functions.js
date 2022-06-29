@@ -92,6 +92,73 @@ function witchRun() {
     });
 }
 
+//Чтение входов Laurent
+function lauStatus(contr) {
+    let url = '/lauin/?contr=' + contr
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (request) {
+            lauInp = request
+        }
+    })
+    return lauInp
+}
+
+//Контроль открытия задвижки и запуска
+function valveOpen(rele=1) {
+        let interval2 = setInterval(function () {
+            if (lauStatus(6) == 1) {
+    // Открытие задвижек
+                $('#spValve').hide()
+                $('#pValve').removeClass('text-body');
+                $('#pValve').addClass('text-success');
+                $('#pValve').text('Задвижки открыты');
+                $('#spPump').show()
+                $('#pPump').removeClass('text-secondary')
+                $('#pPump').addClass('text-body')
+                indEdit('valve1','bg-danger', 'bg-success')
+                indEdit('valve2','bg-danger', 'bg-success')
+                $('.progress-bar').css('width', '75%');
+   // Запуск насосса
+                setTimeout(function () {
+                    $('#spPump').hide()
+                    $('#pPump').removeClass('text-body');
+                    $('#pPump').addClass('text-success');
+                    $('#pPump').text('Насос запущен');
+                    indEdit('dirInd', 'bg-danger', 'bg-success')
+                    $('#spSystem').show()
+                    $('#pSystem').removeClass('text-secondary')
+                    $('#pSystem').addClass('text-body')
+                    $('.progress-bar').css('width', '75%')
+                }, 2000);
+                clearInterval(interval2)
+    // Запуск систем
+                setTimeout(function(){
+                    $('#spSystem').hide()
+                    $('#pSystem').removeClass('text-body');
+                    $('#pSystem').addClass('text-success');
+                    $('#pSystem').text('Система запущена');
+                    indEdit('watInd','bg-danger', 'bg-success')
+                    $('#spSystem').show()
+                    // $('#pSystem').removeClass('text-secondary')
+                    // $('#pSystem').addClass('text-body')
+                    $('.progress-bar').css('width', '100%');
+                }, 4000);
+
+                setTimeout(function () {
+                    $('#irrigOn').modal('hide')
+                    reqRele('btn' + valleyNumber + '_7-9')
+                }, 6000);
+    // Аварийный режим
+                setTimeout(function () {
+                    toastInit('bg-success', 'Система запущена с подачей воды');
+                }, 8000);
+            }
+        }, 1000)
+    lauInp = 0
+}
+
 // Окно контроля запуска
 function startInit(cntr=0) {
     $('#pValve').text('Открытие задвижек...')
@@ -113,60 +180,21 @@ function startInit(cntr=0) {
 
     $('#irrigOn').modal('show')
 
-    // Открытие задвижек
-    setTimeout(function(){
-        $('#spValve').hide()
-        $('#pValve').removeClass('text-body');
-        $('#pValve').addClass('text-success');
-        $('#pValve').text('Задвижки открыты');
-        $('#spPump').show()
-        $('#pPump').removeClass('text-secondary')
-        $('#pPump').addClass('text-body')
-        indEdit('valve1','bg-danger', 'bg-success')
-        indEdit('valve2','bg-danger', 'bg-success')
-        $('.progress-bar').css('width', '75%');
-    }, 90000);
+    valveOpen(valleyNumber)
 
-    // Запуск насосса
-    setTimeout(function () {
-        $('#spPump').hide()
-        $('#pPump').removeClass('text-body');
-        $('#pPump').addClass('text-success');
-        $('#pPump').text('Насос запущен');
-        indEdit('dirInd','bg-danger', 'bg-success')
-        $('#spSystem').show()
-        $('#pSystem').removeClass('text-secondary')
-        $('#pSystem').addClass('text-body')
-        $('.progress-bar').css('width', '75%')
-    }, 93000);
 
-    // Запуск систем
-    setTimeout(function(){
-        $('#spSystem').hide()
-        $('#pSystem').removeClass('text-body');
-        $('#pSystem').addClass('text-success');
-        $('#pSystem').text('Система запущена');
-        indEdit('watInd','bg-danger', 'bg-success')
-        $('#spSystem').show()
-        // $('#pSystem').removeClass('text-secondary')
-        // $('#pSystem').addClass('text-body')
-        $('.progress-bar').css('width', '100%');
-    }, 97000);
+    //
 
-    setTimeout(function () {
-        $('#irrigOn').modal('hide')
-        reqRele('btn' + valleyNumber + '_7-9')
-    }, 98000);
-
-    //Аварийный режим
-    setTimeout(function () {
-        toastInit('bg-success', 'Система запущена с подачей воды');
-    }, 98000);
-    setTimeout(function () {
-        sinRele(valleyNumber, 15, 1)
-        indEdit('fail','bg-danger' , 'bg-success')
-        toastInit('bg-success', 'Включен аварийный режим');
-    }, 180000);
+    //
+    // //Аварийный режим
+    // setTimeout(function () {
+    //     toastInit('bg-success', 'Система запущена с подачей воды');
+    // }, 98000);
+    // setTimeout(function () {
+    //     sinRele(valleyNumber, 15, 1)
+    //     indEdit('fail','bg-danger' , 'bg-success')
+    //     toastInit('bg-success', 'Включен аварийный режим');
+    // }, 180000);
 };
 
 
@@ -206,7 +234,7 @@ function sinRele(contr, rele, status) {
 
 //Lauran Rele
 function lauRele(contr, rele, status) {
-    let url = '/laurele/?contr=' + '5' + '&rele=' + rele + '&status=' + status
+    let url = '/laurele/?contr=' + '6' + '&rele=' + rele + '&status=' + status
     $.ajax({
         url: url,
         type: 'GET',
@@ -252,7 +280,7 @@ function btnEnable(all = false, btn = 0) {
 
 
 //Чтение входов
-function foo() {
+function fooPins() {
     let contr1 = 5
     let contr2 = $('#card2').text()
     readPins(contr1, 15)
@@ -293,3 +321,5 @@ function miniJournal() {
         }
     })
 }
+
+//Состояние системы

@@ -1,7 +1,7 @@
 let valStatus = {'id': '', 'run': 'False', 'dir': '-', 'wat': 'False', 'sis': 'False',
     'valve1': 'False', 'valve2': 'False', 'fail': 'False'}
 let on_off = 0
-
+let lauInp
 
 $(document).ready(function() {
     switch (document.location.pathname) {
@@ -12,9 +12,9 @@ $(document).ready(function() {
         case '/simple/':
 
             $('body').css('background-image', '')
-            let intertval1 = setInterval(foo, 2000)
-            function foo() {readPins(5, 15)}
-            break
+            // let intertval1 = setInterval(fooPins, 2000)
+            // function fooPins() {readPins(5, 15)}
+            // break
         default:
             $('body').css('background-image', '')
             break
