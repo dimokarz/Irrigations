@@ -178,23 +178,17 @@ function startInit(cntr=0) {
 
     $('.progress-bar').css('width', '0%');
 
-    $('#irrigOn').modal('show')
+    // $('#irrigOn').modal('show')
+
+
+    $('#modBody').css("background-image", "url(http://192.168.1.100:1557/bw1VN7ee?container=mjpeg&stream=sub)")
+    $('#startProgr').css('display', 'block');
+    let imgSrc = $('#cam_pump').attr('src');
+    imgSrc = imgSrc.replace("sub", "main")
+    $('#modBody').css("background-image", "url(" + imgSrc + ")")
+    $('#modCam').modal("show")
 
     valveOpen(valleyNumber)
-
-
-    //
-
-    //
-    // //Аварийный режим
-    // setTimeout(function () {
-    //     toastInit('bg-success', 'Система запущена с подачей воды');
-    // }, 98000);
-    // setTimeout(function () {
-    //     sinRele(valleyNumber, 15, 1)
-    //     indEdit('fail','bg-danger' , 'bg-success')
-    //     toastInit('bg-success', 'Включен аварийный режим');
-    // }, 180000);
 };
 
 

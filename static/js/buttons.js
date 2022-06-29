@@ -112,7 +112,6 @@ $('.btn').on('click', function(e) {
             reqRele(e.target.id)
             break;
         case 'btn_p25':
-            // alert(valleyNumber)
             if (on_off == 0) {
                 sinRele(5, 13, 1)
                 $('#btn_p25').removeClass('bg-danger')
@@ -143,5 +142,6 @@ $('.img_fit').on('click', function(e) {
     imgSrc = imgSrc.replace("sub", "main")
     // $('#full').attr('src', imgSrc)
     $('#modBody').css("background-image", "url(" + imgSrc + ")")
+    $('#startProgr').css('display', 'none');
     $('#modCam').modal("show")
 });

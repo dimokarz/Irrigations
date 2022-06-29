@@ -38,12 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'channels',
     'crispy_forms',
     'crispy_bootstrap5',
     'valley',
-    'surveillance',
-    # 'background_task',
+    'surveillance'
 ]
 
 MIDDLEWARE = [
@@ -141,9 +139,3 @@ LOGIN_URL = 'login/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels.layers.InMemoryChannelLayer"
-#     },
-# }

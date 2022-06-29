@@ -40,11 +40,10 @@ def simple(request):
             cam = ''
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     title = ' - Управление'
-    # return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-    #                                        'pCam': cam.pumpMain, 'vCam': cam.valleyMain, 'pSids': cam.getSid,
-    #                                        'journal': journal})
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-                                           'journal': journal})
+                                           'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'journal': journal})
+    # return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
+    #                                        'journal': journal})
 
 
 @login_required

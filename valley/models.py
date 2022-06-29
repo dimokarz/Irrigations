@@ -28,7 +28,7 @@ class Valley(models.Model):
     valley_duet = models.SmallIntegerField(default=0, verbose_name='Связка')
     valley_videosrv = models.ForeignKey(VideoSrv, on_delete=models.PROTECT, related_name='valley_cam',
                                         verbose_name='Видео сервер', null=True)
-    valley_camera = models.CharField(max_length=8, verbose_name='Камера', null=True)
+    valley_camera = models.CharField(max_length=100, verbose_name='Камера', null=True)
 
     def __str__(self):
         return self.valley_name

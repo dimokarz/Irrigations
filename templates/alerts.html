@@ -33,43 +33,43 @@
   </div>
 </div>
 
-<!-- Окно запуска системы -->
-<div class="modal fade" id="irrigOn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header" style="background: #e6e6e6;">
-                <h5 class="modal-title" id="staticBackdropLabel">Valley PRO2</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-8"><p class="text-secondary fs-5" id="pValve"></p></div>
-                    <div class="col">
-                        <div class="spinner-border spinner-border-sm" id="spValve" role="status"></div>
-                    </div>
-                </div>
-               <div class="row">
-                    <div class="col-8"><p class="text-secondary fs-5" id="pPump"></p></div>
-                    <div class="col">
-                        <div class="spinner-border spinner-border-sm" id="spPump" role="status"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8"><p class="text-secondary fs-5" id="pSystem"></p></div>
-                    <div class="col">
-                        <div class="spinner-border spinner-border-sm" id="spSystem" role="status"></div>
-                    </div>
-                </div>
-               <div class="progress" style="margin-top: 15px; height: 2px;">
-                    <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
-               </div>
-              <div class="modal-footer">
-                  <button id="btn5-stop" type="button" class="btn btn-danger btn_fix">Стоп</button>
-              </div>
-            </div>
-        </div>
-    </div>
-</div>
+{#<!-- Окно запуска системы -->#}
+{#<div class="modal fade" id="irrigOn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"#}
+{#     aria-labelledby="staticBackdropLabel" aria-hidden="true">#}
+{#    <div class="modal-dialog modal-dialog-centered">#}
+{#        <div class="modal-content">#}
+{#            <div class="modal-header" style="background: #e6e6e6;">#}
+{#                <h5 class="modal-title" id="staticBackdropLabel">Valley PRO2</h5>#}
+{#            </div>#}
+{#            <div class="modal-body">#}
+{#                <div class="row">#}
+{#                    <div class="col-8"><p class="text-secondary fs-5" id="pValve"></p></div>#}
+{#                    <div class="col">#}
+{#                        <div class="spinner-border spinner-border-sm" id="spValve" role="status"></div>#}
+{#                    </div>#}
+{#                </div>#}
+{#               <div class="row">#}
+{#                    <div class="col-8"><p class="text-secondary fs-5" id="pPump"></p></div>#}
+{#                    <div class="col">#}
+{#                        <div class="spinner-border spinner-border-sm" id="spPump" role="status"></div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <div class="col-8"><p class="text-secondary fs-5" id="pSystem"></p></div>#}
+{#                    <div class="col">#}
+{#                        <div class="spinner-border spinner-border-sm" id="spSystem" role="status"></div>#}
+{#                    </div>#}
+{#                </div>#}
+{#               <div class="progress" style="margin-top: 15px; height: 2px;">#}
+{#                    <div class="progress-bar" role="progressbar" style="width: 0%;"></div>#}
+{#               </div>#}
+{#              <div class="modal-footer">#}
+{#                  <button id="btn5-stop" type="button" class="btn btn-danger btn_fix">Стоп</button>#}
+{#              </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 
 <!-- Полноэкранное видео -->
 <div class="modal fade" id="modCam" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -77,23 +77,52 @@
         <div class="modal-content">
             <div class="modal-body" id="modBody" style="background-size: cover">
                 <div class="position-absolute bottom-0 end-0" style="padding: 20px;">
-                        <button type="button" id="arr_ul" class="btn btn-primary btn_squar">⬁</button>
-                        <button type="button" id="arr_u" class="btn btn-primary btn_squar">⇧</button>
-                        <button type="button" id="arr_ur" class="btn btn-primary btn_squar">⬀</button>&ensp;&ensp;
-                        <button type="button" id="arr_zin" class="btn btn-primary btn_squar">⇧</button><br>
-                        <button type="button" id="arr_l" class="btn btn-primary btn_squar" style="margin-top: 3px;">⇦</button>
-                        <button type="button" id="arr_fp" class="btn btn-primary btn_squar" style="margin-top: 3px;">◉</button>
-                        <button type="button" id="arr_r" class="btn btn-primary btn_squar" style="margin-top: 3px;">⇨</button>&ensp;&ensp;
-                        <button type="button" id="arr_zun" class="btn btn-primary btn_squar" style="margin-top: 3px;">◉</button><br>
-                        <button type="button" id="arr_dl" class="btn btn-primary btn_squar" style="margin-top: 3px;">⬃</button>
-                        <button type="button" id="arr_d" class="btn btn-primary btn_squar" style="margin-top: 4px;">⇩</button>
-                        <button type="button" id="arr_dr" class="btn btn-primary btn_squar" style="margin-top: 3px;">⬂</button>&ensp;&ensp;
-                        <button type="button" id="arr_zout" class="btn btn-primary btn_squar" style="margin-top: 3px;">⇩</button><br><br>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="width: 100%">Закрыть</button>
+                    <button type="button" id="arr_ul" class="btn btn-primary btn_squar">⬁</button>
+                    <button type="button" id="arr_u" class="btn btn-primary btn_squar">⇧</button>
+                    <button type="button" id="arr_ur" class="btn btn-primary btn_squar">⬀</button>&ensp;&ensp;
+                    <button type="button" id="arr_zin" class="btn btn-primary btn_squar">⇧</button><br>
+                    <button type="button" id="arr_l" class="btn btn-primary btn_squar" style="margin-top: 3px;">⇦</button>
+                    <button type="button" id="arr_fp" class="btn btn-primary btn_squar" style="margin-top: 3px;">◉</button>
+                    <button type="button" id="arr_r" class="btn btn-primary btn_squar" style="margin-top: 3px;">⇨</button>&ensp;&ensp;
+                    <button type="button" id="arr_zun" class="btn btn-primary btn_squar" style="margin-top: 3px;">◉</button><br>
+                    <button type="button" id="arr_dl" class="btn btn-primary btn_squar" style="margin-top: 3px;">⬃</button>
+                    <button type="button" id="arr_d" class="btn btn-primary btn_squar" style="margin-top: 4px;">⇩</button>
+                    <button type="button" id="arr_dr" class="btn btn-primary btn_squar" style="margin-top: 3px;">⬂</button>&ensp;&ensp;
+                    <button type="button" id="arr_zout" class="btn btn-primary btn_squar" style="margin-top: 3px;">⇩</button><br><br>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="width: 100%">Закрыть</button>
                 </div>
-{#                <div class="position-absolute bottom-0 end-0" style="padding: 20px; opacity: 0;">#}
-{#                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>#}
-{#                </div>#}
+            <!-- Окно запуска системы -->
+                <div  class="position-absolute top-0 start-0" id="startProgr"
+                      style="padding-top: 20px; padding-left: 20px; display: none">
+                    <div class="shad_box" style="background: rgba(255,255,255, 0.8); width: 450px; padding: 20px;">
+                        <div class="row">
+                            <div class="col-10"><p class="text-body fs-3" id="pValve">Открытие задвижек...</p></div>
+                            <div class="col">
+                                <div class="spinner-border" id="spValve" role="status"></div>
+                            </div>
+                        </div>
+                       <div class="row">
+                            <div class="col-10"><p class="text-muted fs-3" id="pPump">Запуск насоса...</p></div>
+                            <div class="col">
+                                <div class="spinner-border" id="spPump" role="status"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-10"><p class="text-muted fs-3" id="pSystem">Запуск системы...</p></div>
+                            <div class="col">
+                                <div class="spinner-border" id="spSystem" role="status"></div>
+                            </div>
+                        </div>
+                       <div class="progress" style="margin-top: 15px; height: 2px;">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                       </div>
+                       <div class="modal-footer">
+                           <br>
+                           <button id="btn5-stop" type="button" class="btn btn-danger"
+                                   style="width: 100%">Стоп</button>
+                       </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
