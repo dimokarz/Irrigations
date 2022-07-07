@@ -156,10 +156,16 @@ $('.btn').on('click', function(e) {
             break;
         //Полная панель
         case 'btn' + valleyNumber + '_pro2':
-            currCtrl = $('#vallName' + valleyNumber).text()
-            $('#currVall').text(currCtrl)
+            let currCtrl = $('#vallName' + valleyNumber).text();
+            $('#currVall').text(currCtrl);
+            //Добавление id кнопкам полной панели
+            $('button.bfp').each(function() {
+                let currId = 'btn' + valleyNumber + '_';
+                currId += $(this).attr('id')
+                $(this).attr('id' , currId);
+            });
             $('#fullCtrl').modal("show");
-            break
+            break;
     }
 });
 

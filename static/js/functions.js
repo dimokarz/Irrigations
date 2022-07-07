@@ -315,5 +315,3 @@ function miniJournal() {
         }
     })
 }
-
-//Состояние системы
