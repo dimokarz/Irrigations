@@ -27,18 +27,28 @@ $('.btn').on('click', function(e) {
                     valStatus.valve1 = 'True'
                     valStatus.valve2 = 'True'
                     valStatus.fail = 'True'
+                    vallRun = valleyNumber
                     sinRele(valleyNumber, 14, 1)
-                    lauRele(valleyNumber, 1, 1)
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    if (valleyNumber == 5) {
+                        lauRele(valleyNumber, 1, 1)
+                    }
+                    else {
+                        if (valleyNumber == 6) {
+                            lauRele(valleyNumber, 1, 1)
+                        }
+                    }
                     startInit(valleyNumber)
                 }
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 else {
                     reqRele('btn' + valleyNumber + '_7-9')
                     indEdit('dirInd','bg-danger', 'bg-success')
                     toastInit('bg-success', 'Система запущена без подачи воды');
                 }
                 if (valStatus.sis == 'True') { indEdit('sisInd','bg-danger', 'bg-success') }
-                // dataSave()
-                // miniJournal()
+                dataSave()
+                miniJournal()
                 valStatus.id = valleyNumber
                 valStatus.run = 'False'
                 valStatus.dir = '-'
@@ -66,7 +76,14 @@ $('.btn').on('click', function(e) {
             setTimeout(function () {
                 sinRele(valleyNumber, 14, 0)
                 sinRele(valleyNumber, 15, 0)
-                lauRele(valleyNumber, 1, 0)
+                if (valleyNumber == 5) {
+                    lauRele(valleyNumber, 1, 0)
+                }
+                else {
+                    if (valleyNumber == 6) {
+                        lauRele(valleyNumber, 2, 0)
+                    }
+                }
             }, 2000);
             dataSave()
             miniJournal()
@@ -111,27 +128,38 @@ $('.btn').on('click', function(e) {
             valStatus.sis = 'False'
             reqRele(e.target.id)
             break;
-        case 'btn_p25':
+        //Вкл\Выкл PRO2
+        case 'btn' + valleyNumber + '_p2':
             if (on_off == 0) {
-                sinRele(5, 13, 1)
-                $('#btn_p25').removeClass('bg-danger')
-                $('#btn_p25').addClass('bg-success')
-                btnEnable(true, 5)
+                sinRele(valleyNumber, 13, 1)
+                $('#btn' + valleyNumber + '_p2').removeClass('bg-danger')
+                $('#btn' + valleyNumber + '_p2').addClass('bg-success')
+                btnEnable(true, valleyNumber)
                 on_off = 1
             }
             else {
-                sinRele(5, 13, 0)
-                $('#btn_p25').removeClass('bg-success')
-                $('#btn_p25').addClass('bg-danger')
-                btnDisable(true, 5)
+                sinRele(valleyNumber, 13, 0)
+                $('#btn' + valleyNumber + '_p2').removeClass('bg-success')
+                $('#btn' + valleyNumber + '_p2').addClass('bg-danger')
+                btnDisable(true, valleyNumber)
                 on_off = 0
             }
             break
-        case 'btn5-stop':
-            sinRele(5, 14, 0)
-            sinRele(5, 15, 0)
-            lauRele(5, 1, 0)
+        //Прерывание запуска
+        case 'btn-stop':
+            sinRele(vallRun, 14, 0)
+            sinRele(vallRun, 15, 0)
+            lauRele(vallRun, 2, 0)
+            $('#startProgr').css('display', 'none');
+            $('#modCam').modal("hide")
+            toastInit('bg-success', 'Система остановлена');
             break;
+        //Полная панель
+        case 'btn' + valleyNumber + '_pro2':
+            currCtrl = $('#vallName' + valleyNumber).text()
+            $('#currVall').text(currCtrl)
+            $('#fullCtrl').modal("show");
+            break
     }
 });
 
@@ -139,6 +167,7 @@ $('.btn').on('click', function(e) {
 $('.img_fit').on('click', function(e) {
     let camId = e.target.id
     let imgSrc = $('#' + camId).attr('src');
+    ptzUrl = $('#ptz1').text()
     imgSrc = imgSrc.replace("sub", "main")
     // $('#full').attr('src', imgSrc)
     $('#modBody').css("background-image", "url(" + imgSrc + ")")

@@ -106,9 +106,9 @@ function lauStatus(contr) {
 }
 
 //Контроль открытия задвижки и запуска
-function valveOpen(rele=1) {
+function valveOpen(contr) {
         let interval2 = setInterval(function () {
-            if (lauStatus(6) == 1) {
+            if (lauStatus(vallRun) == 1) {
     // Открытие задвижек
                 $('#spValve').hide()
                 $('#pValve').removeClass('text-body');
@@ -147,20 +147,21 @@ function valveOpen(rele=1) {
                 }, 4000);
 
                 setTimeout(function () {
-                    $('#irrigOn').modal('hide')
+                    $('#startProgr').css('display', 'none');
+                    $('#modCam').modal("hide")
+                    sinRele(vallRun, 14, 1)
                     reqRele('btn' + valleyNumber + '_7-9')
                 }, 6000);
-    // Аварийный режим
                 setTimeout(function () {
                     toastInit('bg-success', 'Система запущена с подачей воды');
-                }, 8000);
+                }, 7000)
             }
         }, 1000)
     lauInp = 0
 }
 
 // Окно контроля запуска
-function startInit(cntr=0) {
+function startInit(cntr) {
     $('#pValve').text('Открытие задвижек...')
     $('#pValve').removeClass('text-success')
     $('#pValve').addClass('text-body')
@@ -180,15 +181,13 @@ function startInit(cntr=0) {
 
     // $('#irrigOn').modal('show')
 
-
     $('#modBody').css("background-image", "url(http://192.168.1.100:1557/bw1VN7ee?container=mjpeg&stream=sub)")
     $('#startProgr').css('display', 'block');
     let imgSrc = $('#cam_pump').attr('src');
     imgSrc = imgSrc.replace("sub", "main")
     $('#modBody').css("background-image", "url(" + imgSrc + ")")
     $('#modCam').modal("show")
-
-    valveOpen(valleyNumber)
+    valveOpen(cntr)
 };
 
 
@@ -228,7 +227,8 @@ function sinRele(contr, rele, status) {
 
 //Lauran Rele
 function lauRele(contr, rele, status) {
-    let url = '/laurele/?contr=' + '6' + '&rele=' + rele + '&status=' + status
+    if (contr == 5){ rele = 1} else { if (contr == 6) { rele = 2}}
+    let url = '/laurele/?contr=' + contr + '&rele=' + rele + '&status=' + status // !!!!!
     $.ajax({
         url: url,
         type: 'GET',
@@ -275,7 +275,7 @@ function btnEnable(all = false, btn = 0) {
 
 //Чтение входов
 function fooPins() {
-    let contr1 = 5
+    let contr1 = 6 // !!!!!
     let contr2 = $('#card2').text()
     readPins(contr1, 15)
     if (contr2 =! '') {

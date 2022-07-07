@@ -18,6 +18,7 @@ def pin1Rele(addr, rele, status):
         reqStr = requests.get('http://{}/{}/{}'.format(addr, rele, status), timeout=2).status_code
     except:
         reqStr = 'Fail'
+    print(addr)
     return reqStr
 
 

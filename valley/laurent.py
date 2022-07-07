@@ -4,7 +4,7 @@ import requests
 # http://192.168.1.44/cmd.cgi?cmd=REL,1,1
 
 def lauRele(addr, rele, status):
-    addr = addr + '/cmd.cgi?psw=Laurent&cmd=REL,'
+    addr = addr + '/cmd.cgi?cmd=REL,'
     try:
         reqStr = requests.get('http://{}{},{}'.format(addr, rele, status), timeout=2).status_code
     except:

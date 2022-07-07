@@ -118,10 +118,70 @@
                        </div>
                        <div class="modal-footer">
                            <br>
-                           <button id="btn5-stop" type="button" class="btn btn-danger"
+                           <button id="btn-stop" type="button" class="btn btn-danger"
                                    style="width: 100%">Стоп</button>
                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Полная панель -->
+<div class="modal fade" id="fullCtrl" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1200px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #e6e6e6;">
+                <h5 class="modal-title" id="currVall"></h5>
+            </div>
+            <div class="modal-body">
+                <br>
+                <div class="row">
+                    <div class="col-6" style="padding-left: 60px;"><h4 class="led">---</h4></div>
+                    <div class="col-6"><h4 class="led">PERCENT: 100%</h4></div>
+                </div>
+                <div class="row">
+                    <div class="col-6" style="padding-left: 60px;"><h4 class="led">SIS OFF</h4></div>
+                    <div class="col-6"><h4 class="led">DEPTH: 6.3</h4></div>
+                </div>
+                <div class="row"><div class="col-12" style="padding-left: 60px;"><h4 class="led">-</h4></div></div>
+                <br>
+                <div class="row">
+                    <div class="col-2" style="padding-left: 60px;">
+                        {% for currCol1 in btnCol1 %}
+                            <button type="button" class="btn btn-lg btn_fix {{ currCol1.class }}" disabled>
+                                {{ currCol1.title }}</button><br>
+                        {% endfor %}
+                    </div>
+                    <div class="col-5">
+                        {% for currCol2 in btnCol2 %}
+                            <button type="button" class="btn btn-lg btn_fix {{ currCol2.class }}">
+                                {{ currCol2.title }}</button>
+                            {% if currCol2.br == "1" %}<br>{% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-2">
+                        {% for currCol3 in btnCol3 %}
+                            <button type="button" class="btn btn-lg btn_fix {{ currCol3.class }}" {{ currCol3.br }}>
+                                {{ currCol3.title }}</button><br>
+                        {% endfor %}
+                    </div>
+                    <div class="col-3">
+                                    {% for currCol4 in btnCol4 %}
+                                        <button type="button" class="btn btn-lg btn_fix {{ currCol4.class }}"
+                                            {% if currCol4.rele == "7-9" or currCol4.rele == "8-9" %}
+                                                style="margin-bottom: 17px;" {% endif %}
+                                                    id="btn{{ valley.status_valley_id }}_{{ currCol4.rele }}">
+                                                        {{ currCol4.title }}</button>
+                                        {% if currCol4.br == "1" %}<br>{% endif %}
+                                    {% endfor %}
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
         </div>

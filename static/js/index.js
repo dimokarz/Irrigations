@@ -2,6 +2,9 @@ let valStatus = {'id': '', 'run': 'False', 'dir': '-', 'wat': 'False', 'sis': 'F
     'valve1': 'False', 'valve2': 'False', 'fail': 'False'}
 let on_off = 0
 let lauInp
+let vallRun = 0
+let ptzUrl = ''
+let currVal = 0
 
 $(document).ready(function() {
     switch (document.location.pathname) {

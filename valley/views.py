@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from urllib.request import urlopen
 from xml.etree.ElementTree import parse
 from .models import Valley, Status, Journal, Pump
-from .control import ControlSimple
+from .control import ControlSimple, ControlFull
 from .arduino import *
 from surveillance.trassir import *
 from .laurent import *
@@ -23,6 +23,10 @@ def index(request):
 @login_required
 def simple(request):
     btnLst = ControlSimple().engButtons
+    btnCol1 = ControlFull().engButtons1
+    btnCol2 = ControlFull().engButtons2
+    btnCol3 = ControlFull().engButtons3
+    btnCol4 = ControlFull().engButtons4
     first = int(request.GET.get('first')[5:])
     if request.GET.get('second') is not None:
         second = request.GET.get('second')[5:]
@@ -40,10 +44,9 @@ def simple(request):
             cam = ''
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     title = ' - Управление'
-    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-                                           'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'journal': journal})
-    # return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,
-    #                                        'journal': journal})
+    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,'ptz': cam.ptz,
+                                           'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'journal': journal,
+                                           'btnCol1': btnCol1, 'btnCol2': btnCol2, 'btnCol3': btnCol3,  'btnCol4': btnCol4})
 
 
 @login_required
@@ -136,12 +139,50 @@ def test(request):
     return render(request, 'test.html')
 
 
+# def lauin(request):
+#     contr = request.GET.get('contr')
+#     str_url = 'http://192.168.1.107/state.xml'
+#     lauXml = urlopen(str_url)
+#     xmldoc = parse(lauXml)
+#     inputs = xmldoc.findtext('in')
+#     return HttpResponse(inputs[0])
+
 def lauin(request):
     contr = request.GET.get('contr')
-    str_url = 'http://192.168.1.107/state.xml'
+    str_url = 'http://192.168.1.107/state.xml'  # !!!!!
     lauXml = urlopen(str_url)
     xmldoc = parse(lauXml)
     inputs = xmldoc.findtext('in')
-    ### Температура
-    result = round(float(xmldoc.findtext('temp')), 1)
-    return HttpResponse(inputs[0])
+    if int(contr) == 6:
+        valv1 = inputs[0]  # !!!!!
+        str_url = 'http://192.168.1.109/json_sensor.cgi?psw=Laurent'  # !!!!!
+    elif int(contr) == 5:
+        valv1 = inputs[0]  # !!!!!
+        str_url = 'http://192.168.1.151/json_sensor.cgi?psw=Laurent'  # !!!!!
+    jData = requests.get(str_url, verify=False)
+    inputs = json.loads(jData.text)
+    valv2 = inputs['in'][1]  # !!!!!
+    if int(valv1) == 1 and int(valv2) == 1:
+        valv = 1
+    else:
+        valv = 0
+    print(valv1, valv2, valv)
+    print(str_url)
+    return HttpResponse(str(valv))
+
+
+def listenin(request):
+    contr = request.GET.get('contr')
+    valStat = request.GET.get('stat')
+
+    if int(contr) == 5:
+        contrAddr = '192.168.1.251'
+    elif int(contr) == 6:
+        contrAddr = '192.168.1.108'
+
+    # print('valStat=' + valStat)
+    if int(valStat) == 1:
+        pin1Rele(contrAddr, 44, 1)  # !!!!!
+    elif int(valStat) == 0:
+        pin1Rele(contrAddr, 44, 0)  # !!!!!
+    return HttpResponse(contrAddr + ' ' + str(contr) + ' ' + str(valStat))

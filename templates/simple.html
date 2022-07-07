@@ -10,7 +10,7 @@
                         <div class="card-header" style="background: #e6e6e6;">
 {#Индикаторы                        #}
                             <div class="row">
-                                <div class="col-6"><h5>{{ valley.status_valley }}</h5></div>
+                                <div class="col-6"><h5 id="vallName{{ valley.status_valley_id }}">{{ valley.status_valley }}{{ sids.0 }}</h5></div>
                                 <div class="col">
                                     <span class="badge bg-success" id="cntr{{ valley.status_valley_id }}"
                                         style="width: 100px; margin-top: 7px;">Управление</span>
@@ -28,7 +28,8 @@
                         </div>
                         <div class="card-body">
                         <p id="card{{ forloop.counter }}" style="display: none">{{ valley.status_valley_id }}</p>
-                        <p  id = "pSid" style="display: none">{{ pSids.0 }}</p>
+                        <p id="ptz{{ forloop.counter }}" style="display: none">{{ ptz.0 }}</p>
+{#                        <p  id = "pSid" style="display: none">{{ pSids.0 }}</p>#}
                             <div class="row">
                                 <div class="col-6">
                                     <div class="row">
@@ -111,16 +112,16 @@
                                     <hr style="margin-top: -10px;">
                                     <div class="row">
                                         <div class="col-4">
-                                           <button type="button" id="btn_p2{{ valley.status_valley_id }}"
+                                           <button type="button" id="btn{{ valley.status_valley_id }}_p2"
                                                    class="btn btn_round btn-danger bi bi-power"></button>
                                         </div>
                                         <div class="col-4">
-                                            <button type="button" id="btn_pro2{{i}}"
+                                            <button type="button" id="btn{{ valley.status_valley_id }}_pro2"
                                                     class="btn btn_squar btn-primary bi bi-calculator"></button>
                                         </div>
                                         <div class="col-4">
-                                            <button type="button" id="btn_cam{{i}}"
-                                                    class="btn btn_squar btn-primary bi bi-camera-reels"></button>
+{#                                            <button type="button" id="btn_cam{{i}}"#}
+{#                                                    class="btn btn_squar btn-primary bi bi-camera-reels"></button>#}
 
                                         </div>
                                     </div>
@@ -179,6 +180,10 @@
 {#    <div style="height: 500px;">#}
 {#        <iframe id="fr3" src="http://192.168.1.79:8080/monitoring.htm" width="1280" height="200"></iframe>#}
 {#    </div>#}
+
+{#    {% for currCol in btnCol1 %}#}
+{#        {{ currCol.title }}#}
+{#    {% endfor %}#}
 
 {% endblock content %}
 
