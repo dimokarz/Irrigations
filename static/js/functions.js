@@ -315,3 +315,17 @@ function miniJournal() {
         }
     })
 }
+
+//Нормы вылива
+function norm(cntr, val) {
+    let calc = 0
+    switch (cntr) {
+        case '5':
+            calc = 488 / val;
+            break;
+        case '6':
+            calc = 630 / val;
+            break;
+    }
+    return calc.toFixed(1)
+}

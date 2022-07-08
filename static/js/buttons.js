@@ -160,12 +160,96 @@ $('.btn').on('click', function(e) {
             $('#currVall').text(currCtrl);
             //Добавление id кнопкам полной панели
             $('button.bfp').each(function() {
-                let currId = 'btn' + valleyNumber + '_';
+                let currId = ''
+                currId = 'btn' + valleyNumber + '_';
                 currId += $(this).attr('id')
                 $(this).attr('id' , currId);
             });
+            $('#paramEd').text('---');
             $('#fullCtrl').modal("show");
             break;
+        //0-9.
+        case 'btn' + valleyNumber + '_2-9':
+        case 'btn' + valleyNumber + '_3-9':
+        case 'btn' + valleyNumber + '_4-9':
+        case 'btn' + valleyNumber + '_2-10':
+        case 'btn' + valleyNumber + '_3-10':
+        case 'btn' + valleyNumber + '_4-10':
+        case 'btn' + valleyNumber + '_2-11':
+        case 'btn' + valleyNumber + '_3-11':
+        case 'btn' + valleyNumber + '_4-11':
+        case 'btn' + valleyNumber + '_2-12':
+        case 'btn' + valleyNumber + '_3-12':
+            if (currVar.name == '') {
+                $('#mal1').text('Нужно выбрать "Percent" или "Depth" ' );
+                $('#modAlert').modal("show");
+            }
+            else {
+                let tStr = $('#paramEd').text();
+                tStr += $('#' + e.target.id).text()
+                $('#paramEd').text(tStr);
+                currVar.value += $('#' + e.target.id).text()
+                currVar.digit += 1
+                reqRele(e.target.id)
+            }
+            break;
+        //Percent
+        case 'btn' + valleyNumber + '_6-9':
+            currVar.name = 'Percent: ';
+            currVar.value = '';
+            currVar.digit = 0;
+            $('#paramEd').text('Enter Percent: ');
+            reqRele(e.target.id)
+            break;
+        //Depth
+        case 'btn' + valleyNumber + '_6-10':
+            currVar.name = 'Depth: ';
+            currVar.value = '';
+            currVar.digit = 0;
+            $('#paramEd').text('Enter Depth: ');
+            reqRele(e.target.id)
+            break;
+        //Esc
+        case 'btn' + valleyNumber + '_5-12':
+            currVar.name = '';
+            currVar.value = '';
+            currVar.digit = 0;
+            $('#paramEd').text('');
+            reqRele(e.target.id)
+            break;
+        //Enter
+        case 'btn' + valleyNumber + '_6-12':
+            if (currVar.name == 'Percent: ' && currVar.value != '') {
+                $('#percEd').text(currVar.name + currVar.value + '%');
+                $('#depEd').text('Depth: ' + norm(valleyNumber, currVar.value) + 'mm')
+            }
+            // else {
+            //     $('#mal1').text('Введите значение' );
+            //     $('#modAlert').modal("show");
+            // };
+
+            if (currVar.name == 'Depth: ' && currVar.value != '') {
+                $('#depEd').text(currVar.name + currVar.value + 'mm');
+                $('#percEd').text('Percent: ' + norm(valleyNumber, currVar.value) + '%');
+            }
+            // else {
+            //     $('#mal1').text('Введите значение' );
+            //     $('#modAlert').modal("show");
+            // };
+            reqRele(e.target.id)
+            currVar.name = '';
+            currVar.value = '';
+            currVar.digit = 0;
+            $('#paramEd').text('');
+            break;
+        //BackSpace
+        case 'btn' + valleyNumber + '_4-12':
+            if (currVar.value != '') {
+                let delStr = $('#paramEd').text().slice(0, -1)
+                currVar.value = delStr
+                $('#paramEd').text(delStr)
+                reqRele(e.target.id)
+            }
     }
 });
 

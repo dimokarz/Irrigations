@@ -5,6 +5,8 @@ let lauInp
 let vallRun = 0
 let ptzUrl = ''
 let currVal = 0
+let currVar = {'name': '', 'value': '', 'digit': 0}
+let currId = ''
 
 $(document).ready(function() {
     switch (document.location.pathname) {
