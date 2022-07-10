@@ -199,6 +199,9 @@ $('.btn').on('click', function(e) {
             currVar.value = '';
             currVar.digit = 0;
             $('#paramEd').text('Enter Percent: ');
+            for (i = 0; i < 2; i++) {
+                $('#paramEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
+            }
             reqRele(e.target.id)
             break;
         //Depth
@@ -207,6 +210,9 @@ $('.btn').on('click', function(e) {
             currVar.value = '';
             currVar.digit = 0;
             $('#paramEd').text('Enter Depth: ');
+            for (i = 0; i < 2; i++) {
+                $('#paramEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
+            }
             reqRele(e.target.id)
             break;
         //Esc
@@ -241,6 +247,10 @@ $('.btn').on('click', function(e) {
             currVar.value = '';
             currVar.digit = 0;
             $('#paramEd').text('');
+            for (i = 0; i < 2; i++) {
+                $('#depEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
+                $('#percEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
+            }
             break;
         //BackSpace
         case 'btn' + valleyNumber + '_4-12':
