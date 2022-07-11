@@ -317,15 +317,34 @@ function miniJournal() {
 }
 
 //Нормы вылива
-function norm(cntr, val) {
-    let calc = 0
+function norm(cntr, val, per=true) {
+    let calc
+    let values = []
     switch (cntr) {
         case '5':
+            if (per == true) {
+                calc = 990 / val;
+                values.push(calc.toFixed(1));
+            }
+            else {
+                calc = val * 2.03
+                values.push(calc.toFixed(1));
+            }
             calc = 488 / val;
+            values.push(calc.toFixed(1));
             break;
         case '6':
+            if (per == true) {
+                calc = 1100 / val;
+                values.push(calc.toFixed(1));
+            }
+            else {
+                calc = val * 1.74
+                values.push(calc.toFixed(1));
+            }
             calc = 630 / val;
+            values.push(calc.toFixed(1));
             break;
     }
-    return calc.toFixed(1)
+    return values
 }

@@ -9,13 +9,16 @@
             <th scope="col">Направление</th>
             <th scope="col">Вода</th>
             <th scope="col">Автостоп</th>
+            <th scope="col">Скорость</th>
+            <th scope="col">Глубина</th>
+            <th scope="col">Время</th>
         </tr>
     </thead>
         {% for row in journLst %}
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ row.journal_date }}</td>
-                <td><strong>{{ row.journal_valley }}</td></strong>
+                <td><strong>{{ row.journal_valley }}</strong></td>
                 <td>{{ row.journal_user }}</td>
                 {% if row.journal_act == "R" %}
                     <td  class="bg-success bg-opacity-25">Запуск</td>
@@ -36,6 +39,15 @@
                     {% endif %}
                 {% else %}
                     <td  class="bg-danger bg-opacity-25">Остановка</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                {% endif %}
+                {% if row.journal_act == "R" %}
+                    <td>{{ row.journal_perc }}</td>
+                    <td>{{ row.journal_depth }}</td>
+                    <td>{{ row.journal_hours }}</td>
+                {% else %}
                     <td></td>
                     <td></td>
                     <td></td>

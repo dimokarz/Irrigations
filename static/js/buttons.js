@@ -165,7 +165,7 @@ $('.btn').on('click', function(e) {
                 currId += $(this).attr('id')
                 $(this).attr('id' , currId);
             });
-            $('#paramEd').text('---');
+            // $('#paramEd').text('---');
             $('#fullCtrl').modal("show");
             break;
         //0-9.
@@ -195,6 +195,7 @@ $('.btn').on('click', function(e) {
             break;
         //Percent
         case 'btn' + valleyNumber + '_6-9':
+            perc = true
             currVar.name = 'Percent: ';
             currVar.value = '';
             currVar.digit = 0;
@@ -206,6 +207,7 @@ $('.btn').on('click', function(e) {
             break;
         //Depth
         case 'btn' + valleyNumber + '_6-10':
+            perc = false
             currVar.name = 'Depth: ';
             currVar.value = '';
             currVar.digit = 0;
@@ -225,9 +227,10 @@ $('.btn').on('click', function(e) {
             break;
         //Enter
         case 'btn' + valleyNumber + '_6-12':
+            let values = norm(valleyNumber, currVar.value, perc)
             if (currVar.name == 'Percent: ' && currVar.value != '') {
                 $('#percEd').text(currVar.name + currVar.value + '%');
-                $('#depEd').text('Depth: ' + norm(valleyNumber, currVar.value) + 'mm')
+                $('#depEd').text('Depth: ' + values[1] + 'mm')
             }
             // else {
             //     $('#mal1').text('Введите значение' );
@@ -236,12 +239,13 @@ $('.btn').on('click', function(e) {
 
             if (currVar.name == 'Depth: ' && currVar.value != '') {
                 $('#depEd').text(currVar.name + currVar.value + 'mm');
-                $('#percEd').text('Percent: ' + norm(valleyNumber, currVar.value) + '%');
+                $('#percEd').text('Percent: ' + values[1] + '%');
             }
             // else {
             //     $('#mal1').text('Введите значение' );
             //     $('#modAlert').modal("show");
             // };
+            $('#hourEd').text('Hourse: ' + values[0])
             reqRele(e.target.id)
             currVar.name = '';
             currVar.value = '';
@@ -250,6 +254,7 @@ $('.btn').on('click', function(e) {
             for (i = 0; i < 2; i++) {
                 $('#depEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
                 $('#percEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
+                $('#hourEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
             }
             break;
         //BackSpace

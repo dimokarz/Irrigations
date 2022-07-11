@@ -17,4 +17,4 @@ class ValleyAdmin(admin.ModelAdmin):
 
 @admin.register(Journal)
 class ValleyAdmin(admin.ModelAdmin):
-    list_display = ['journal_date', 'journal_valley', 'journal_act', 'journal_percent', 'journal_depth', 'journal_hours']
+    list_display = ['journal_date', 'journal_valley', 'journal_act', 'journal_perc', 'journal_depth', 'journal_hours']
