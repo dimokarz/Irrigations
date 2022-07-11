@@ -68,3 +68,6 @@ class Journal(models.Model):
     journal_dir = models.CharField(max_length=1, choices=DIRECTIONS, default='N', verbose_name='Направление')
     journal_wat = models.BooleanField(default=False, verbose_name='Вода')
     journal_sis = models.BooleanField(default=False, verbose_name='АвтоСтоп')
+    journal_perc = models.SmallIntegerField(default=False, verbose_name='Percent')
+    journal_depth = models.SmallIntegerField(default=False, verbose_name='Depth')
+    journal_hours = models.SmallIntegerField(default=False, verbose_name='Hourse')
