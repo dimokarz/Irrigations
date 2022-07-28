@@ -69,7 +69,8 @@ def statussave(request):
     currData = Status(status_valley=valleyId, status_ctrl=True, status_run=request.GET.get('run'),
                       status_dir=request.GET.get('dir'), status_wat=request.GET.get('wat'),
                       status_sis=request.GET.get('sis'), status_valve1=request.GET.get('valve1'),
-                      status_valve2=request.GET.get('valve2'), status_fail=request.GET.get('fail'))
+                      status_valve2=request.GET.get('valve2'), status_fail=request.GET.get('fail'),
+                      status_perc=request.GET.get('perc'), status_depth=request.GET.get('dep'))
     currData.save()
     if request.GET.get('run') == 'False':
         act = 'S'
@@ -77,7 +78,8 @@ def statussave(request):
         act = 'R'
     currData = Journal(journal_valley=valleyId, journal_act=act, journal_user=request.user.get_username(),
                        journal_dir=request.GET.get('dir'), journal_wat=request.GET.get('wat'),
-                       journal_sis=request.GET.get('sis'))
+                       journal_sis=request.GET.get('sis'), journal_perc=request.GET.get('perc'),
+                       journal_depth=request.GET.get('dep'))
     currData.save()
     return HttpResponse('Ok')
 
@@ -135,6 +137,12 @@ def minijourn(request):
     else:
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     return render(request, 'minijourn.html', {'journal': journal})
+
+
+def currec(request):
+    curr = request.GET.get('curr')
+    detail = Journal.objects.all().filter(journal_valley_id=int(curr))
+    return HttpResponse(detail)
 
 
 def journlst(request):

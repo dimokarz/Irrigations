@@ -1,4 +1,4 @@
-<table class="table table-sm table-hover">
+<table class="table table-sm table-hover" id="mjournal">
     <tbody>
         {% for jourLst in journal %}
             <tr>
@@ -10,6 +10,7 @@
                 {% else %}
                     <td  class="bg-success bg-opacity-25" width="30%">Запуск</td>
                 {% endif %}
+                <td class="bg-light" style="display: none">{{ jourLst.id }}</td>
             </tr>
         {% endfor %}
     </tbody>

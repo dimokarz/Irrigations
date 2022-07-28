@@ -379,3 +379,11 @@ function norm(cntr, val, per=true) {
     }
     return values
 }
+
+//Детали минижурнала
+$("#mjournal").on("click", "tr", function (row, $el, field) {
+    let tr = $(this).closest('tr');
+    let col1=tr.find("td:eq(3)").html()
+    $('#mjdDate').text("1234566");
+    $('#mjDetail').modal("show");
+});

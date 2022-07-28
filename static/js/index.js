@@ -1,5 +1,5 @@
 let valStatus = {'id': '', 'run': 'False', 'dir': '-', 'wat': 'False', 'sis': 'False',
-    'valve1': 'False', 'valve2': 'False', 'fail': 'False'}
+    'valve1': 'False', 'valve2': 'False', 'fail': 'False', 'perc': '', 'dep': ''}
 let on_off = 0
 let lauInp
 let vallRun = 0

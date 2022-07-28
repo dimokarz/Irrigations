@@ -11,7 +11,7 @@
             <th scope="col">Автостоп</th>
             <th scope="col">Скорость</th>
             <th scope="col">Глубина</th>
-            <th scope="col">Время</th>
+{#            <th scope="col">Время</th>#}
         </tr>
     </thead>
         {% for row in journLst %}
@@ -46,7 +46,7 @@
                 {% if row.journal_act == "R" %}
                     <td>{{ row.journal_perc }}</td>
                     <td>{{ row.journal_depth }}</td>
-                    <td>{{ row.journal_hours }}</td>
+{#                    <td>{{ row.journal_hours }}</td>#}
                 {% else %}
                     <td></td>
                     <td></td>

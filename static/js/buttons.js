@@ -136,7 +136,12 @@ $('.btn').on('click', function(e) {
                 vallRele(valleyNumber, 1, 1)
                 $('#btn' + valleyNumber + '_p2').removeClass('bg-danger')
                 $('#btn' + valleyNumber + '_p2').addClass('bg-success')
-                btnEnable(true, valleyNumber)
+                setTimeout(function () {
+                    btnEnable(true, valleyNumber)
+                    $('#btn' + valleyNumber + '_p2').removeClass('bg-danger')
+                    $('#btn' + valleyNumber + '_p2').addClass('bg-success')
+                    toastInit('bg-success', 'Контроллер включен')
+                }, 3000)
                 on_off = 1
             }
             else {
@@ -144,15 +149,17 @@ $('.btn').on('click', function(e) {
                 $('#btn' + valleyNumber + '_p2').removeClass('bg-success')
                 $('#btn' + valleyNumber + '_p2').addClass('bg-danger')
                 btnDisable(true, valleyNumber)
+                toastInit('bg-success', 'Контроллер выключен')
                 on_off = 0
             }
             break
         //Прерывание запуска
         case 'btn-stop':
-            sinRele(vallRun, 14, 0)
-            sinRele(vallRun, 15, 0)
-            // lauRele(vallRun, 2, 0)
-            vallRele(vallRun, 2, 1)
+            // sinRele(vallRun, 14, 0)
+            // sinRele(vallRun, 15, 0)
+            lauRele(vallRun, 1, 0)
+            lauRele(vallRun, 2, 0)
+            vallRele(vallRun, 2, 0)
             $('#startProgr').css('display', 'none');
             $('#modCam').modal("hide")
             toastInit('bg-success', 'Система остановлена');
@@ -232,8 +239,12 @@ $('.btn').on('click', function(e) {
         case 'btn' + valleyNumber + '_6-12':
             let values = norm(valleyNumber, currVar.value, perc)
             if (currVar.name == 'Скорость: ' && currVar.value != '') {
+                valStatus.perc = currVar.value
+                valStatus.dep = values[1]
                 $('#percEd').text(currVar.name + currVar.value + '%');
+                $('#percSm').text(currVar.value + '%');
                 $('#depEd').text('Глубина: ' + values[1] + 'mm')
+                $('#depSm').text(values[1] + 'mm')
             }
             // else {
             //     $('#mal1').text('Введите значение' );
@@ -241,8 +252,11 @@ $('.btn').on('click', function(e) {
             // };
 
             if (currVar.name == 'Глубина пролива: ' && currVar.value != '') {
+                valStatus.perc = values[1]
+                valStatus.dep = currVar.value
                 $('#depEd').text(currVar.name + currVar.value + 'mm');
-                $('#percEd').text('Скорость: ' + values[1] + '%');
+                $('#depSm').text(currVar.value + 'mm');
+                $('#percSm').text(values[1] + '%');
             }
             // else {
             //     $('#mal1').text('Введите значение' );
