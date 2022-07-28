@@ -28,7 +28,8 @@ $('.btn').on('click', function(e) {
                     valStatus.valve2 = 'True'
                     valStatus.fail = 'True'
                     vallRun = valleyNumber
-                    sinRele(valleyNumber, 14, 1)
+//                    sinRele(valleyNumber, 14, 1) //Открытие задвижки
+                    vallRele(valleyNumber, 2, 1)
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     if (valleyNumber == 5) {
                         lauRele(valleyNumber, 1, 1)
@@ -48,7 +49,7 @@ $('.btn').on('click', function(e) {
                 }
                 if (valStatus.sis == 'True') { indEdit('sisInd','bg-danger', 'bg-success') }
                 dataSave()
-                miniJournal()
+                // miniJournal()
                 valStatus.id = valleyNumber
                 valStatus.run = 'False'
                 valStatus.dir = '-'
@@ -74,8 +75,9 @@ $('.btn').on('click', function(e) {
             valStatus.valve2 = 'False'
             reqRele(e.target.id)
             setTimeout(function () {
-                sinRele(valleyNumber, 14, 0)
-                sinRele(valleyNumber, 15, 0)
+                // sinRele(valleyNumber, 14, 0)
+                // sinRele(valleyNumber, 15, 0)
+                vallRele(valleyNumber, 2, 0)
                 if (valleyNumber == 5) {
                     lauRele(valleyNumber, 1, 0)
                 }
@@ -86,7 +88,7 @@ $('.btn').on('click', function(e) {
                 }
             }, 2000);
             dataSave()
-            miniJournal()
+            // miniJournal()
             indEdit('All', 'bg-success', 'bg-danger')
             indEdit('fail','bg-success', 'bg-danger')
              if (valStatus.wat == 'True') {
@@ -131,14 +133,14 @@ $('.btn').on('click', function(e) {
         //Вкл\Выкл PRO2
         case 'btn' + valleyNumber + '_p2':
             if (on_off == 0) {
-                sinRele(valleyNumber, 13, 1)
+                vallRele(valleyNumber, 1, 1)
                 $('#btn' + valleyNumber + '_p2').removeClass('bg-danger')
                 $('#btn' + valleyNumber + '_p2').addClass('bg-success')
                 btnEnable(true, valleyNumber)
                 on_off = 1
             }
             else {
-                sinRele(valleyNumber, 13, 0)
+                vallRele(valleyNumber, 1, 0)
                 $('#btn' + valleyNumber + '_p2').removeClass('bg-success')
                 $('#btn' + valleyNumber + '_p2').addClass('bg-danger')
                 btnDisable(true, valleyNumber)
@@ -149,7 +151,8 @@ $('.btn').on('click', function(e) {
         case 'btn-stop':
             sinRele(vallRun, 14, 0)
             sinRele(vallRun, 15, 0)
-            lauRele(vallRun, 2, 0)
+            // lauRele(vallRun, 2, 0)
+            vallRele(vallRun, 2, 1)
             $('#startProgr').css('display', 'none');
             $('#modCam').modal("hide")
             toastInit('bg-success', 'Система остановлена');
@@ -196,10 +199,10 @@ $('.btn').on('click', function(e) {
         //Percent
         case 'btn' + valleyNumber + '_6-9':
             perc = true
-            currVar.name = 'Percent: ';
+            currVar.name = 'Скорость: ';
             currVar.value = '';
             currVar.digit = 0;
-            $('#paramEd').text('Enter Percent: ');
+            $('#paramEd').text('Введите скорость: ');
             for (i = 0; i < 2; i++) {
                 $('#paramEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
             }
@@ -208,10 +211,10 @@ $('.btn').on('click', function(e) {
         //Depth
         case 'btn' + valleyNumber + '_6-10':
             perc = false
-            currVar.name = 'Depth: ';
+            currVar.name = 'Глубина пролива: ';
             currVar.value = '';
             currVar.digit = 0;
-            $('#paramEd').text('Enter Depth: ');
+            $('#paramEd').text('Введите глубину пролива: ');
             for (i = 0; i < 2; i++) {
                 $('#paramEd').fadeTo('slow', 0.0).fadeTo('slow', 1.0);
             }
@@ -228,24 +231,24 @@ $('.btn').on('click', function(e) {
         //Enter
         case 'btn' + valleyNumber + '_6-12':
             let values = norm(valleyNumber, currVar.value, perc)
-            if (currVar.name == 'Percent: ' && currVar.value != '') {
+            if (currVar.name == 'Скорость: ' && currVar.value != '') {
                 $('#percEd').text(currVar.name + currVar.value + '%');
-                $('#depEd').text('Depth: ' + values[1] + 'mm')
+                $('#depEd').text('Глубина: ' + values[1] + 'mm')
             }
             // else {
             //     $('#mal1').text('Введите значение' );
             //     $('#modAlert').modal("show");
             // };
 
-            if (currVar.name == 'Depth: ' && currVar.value != '') {
+            if (currVar.name == 'Глубина пролива: ' && currVar.value != '') {
                 $('#depEd').text(currVar.name + currVar.value + 'mm');
-                $('#percEd').text('Percent: ' + values[1] + '%');
+                $('#percEd').text('Скорость: ' + values[1] + '%');
             }
             // else {
             //     $('#mal1').text('Введите значение' );
             //     $('#modAlert').modal("show");
             // };
-            $('#hourEd').text('Hourse: ' + values[0])
+            $('#hourEd').text('Время: ' + values[0])
             reqRele(e.target.id)
             currVar.name = '';
             currVar.value = '';
@@ -270,7 +273,7 @@ $('.btn').on('click', function(e) {
 
 //Открытие камеры
 $('.img_fit').on('click', function(e) {
-    let camId = e.target.id
+    camId = e.target.id
     let imgSrc = $('#' + camId).attr('src');
     ptzUrl = $('#ptz1').text()
     imgSrc = imgSrc.replace("sub", "main")
@@ -278,4 +281,72 @@ $('.img_fit').on('click', function(e) {
     $('#modBody').css("background-image", "url(" + imgSrc + ")")
     $('#startProgr').css('display', 'none');
     $('#modCam').modal("show")
+});
+
+
+//PTZ кнопка нажать кнопку
+$('.btn_arr').mousedown(function(e) {
+    let url = '';
+    switch(e.target.id) {
+        case 'arr_ul':
+            ptzUrl = ptzUrl.replace('XXX', '-3')
+            ptzUrl = ptzUrl.replace('YYY', '3')
+            break;
+        case 'arr_u':
+            ptzUrl = ptzUrl.replace('XXX', '0')
+            ptzUrl = ptzUrl.replace('YYY', '3')
+            break;
+        case 'arr_ur':
+            ptzUrl = ptzUrl.replace('XXX', '3')
+            ptzUrl = ptzUrl.replace('YYY', '3')
+            break;
+        case 'arr_l':
+            ptzUrl = ptzUrl.replace('XXX', '-3')
+            ptzUrl = ptzUrl.replace('YYY', '0')
+            break;
+        case 'arr_r':
+            ptzUrl = ptzUrl.replace('XXX', '3')
+            ptzUrl = ptzUrl.replace('YYY', '0')
+            break;
+        case 'arr_dl':
+            ptzUrl = ptzUrl.replace('XXX', '-3')
+            ptzUrl = ptzUrl.replace('YYY', '-3')
+            break;
+        case 'arr_d':
+            ptzUrl = ptzUrl.replace('XXX', '0')
+            ptzUrl = ptzUrl.replace('YYY', '-3')
+            break;
+        case 'arr_dr':
+            ptzUrl = ptzUrl.replace('XXX', '3')
+            ptzUrl = ptzUrl.replace('YYY', '-3')
+            break;
+        // case 'arr_zin':
+        //     url_ptz = url_ptz + 'zoom&speed=1&sid=' + sid_ptz;
+        //     break;
+        // case 'arr_zout':
+        //     url_ptz = url_ptz + 'zoom&speed=-1&sid=' + sid_ptz;
+        //     break;
+    };
+    $.ajax({
+        url: ptzUrl,
+        type: 'POST',
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+
+//PTZ кнопка отпустить кнопку
+$('.btn_arr').mouseup(function(){
+    let canSid = ptzUrl.slice(-8)
+    let urlStop = ptzUrl.slice(0,40) + 'stop&sid=' + canSid
+    $.ajax({
+        url: urlStop,
+        type: 'POST',
+        error: function(error) {
+            console.log(error);
+        }
+    });
+    ptzUrl = $('#ptz1').text()
 });

@@ -65,8 +65,8 @@ class ControlFull:
         ]
 
         self.__btn3 = [
-            {'rele': '6-9', 'eng': 'Percent', 'rus': 'Проц', 'br': '0', 'class': 'btn-outline-primary'},
-            {'rele': '6-10', 'eng': 'Depth', 'rus': 'Глуб', 'br': '0', 'class': 'btn-outline-primary'},
+            {'rele': '6-9', 'eng': 'Percent', 'rus': 'Проценты', 'br': '0', 'class': 'btn-outline-primary'},
+            {'rele': '6-10', 'eng': 'Depth', 'rus': 'Глубина', 'br': '0', 'class': 'btn-outline-primary'},
             {'rele': '', 'eng': '', 'rus': '', 'br': 'disabled', 'class': ''},
             {'rele': '6-12', 'eng': 'Enter', 'rus': 'Enter', 'br': '0', 'class': 'btn-outline-success'},
         ]

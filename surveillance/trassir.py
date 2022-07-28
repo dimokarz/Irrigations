@@ -38,7 +38,7 @@ class VideoUrl:
             # urlPort = urlparse(row).port
             ptzPath = 'https://{}:{}/ptz?command=open&channel={}&sid={}'.format(urlHost, urlPort, urlCan, sid)
             jData = requests.get(ptzPath, verify=False)
-            ptzPath = 'https://{}:{}/ptz?command=turn&speed_x=XXX&speed_y=YYY&sid={}'.format(urlHost, urlPort, urlCan)
+            ptzPath = 'https://{}:{}/ptz?command=turn&speed_x=XXX&speed_y=YYY&sid={}'.format(urlHost, urlPort, sid)
             ptz.append(ptzPath)
         return ptz
 

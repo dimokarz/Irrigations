@@ -30,6 +30,7 @@ class Valley(models.Model):
                                         verbose_name='Видео сервер', null=True)
     valley_camera = models.CharField(max_length=100, verbose_name='Камера', null=True)
 
+
     def __str__(self):
         return self.valley_name
 

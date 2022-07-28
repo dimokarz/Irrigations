@@ -120,7 +120,7 @@ function valveOpen(contr) {
                 indEdit('valve1','bg-danger', 'bg-success')
                 indEdit('valve2','bg-danger', 'bg-success')
                 $('.progress-bar').css('width', '75%');
-   // Запуск насосса
+   // Запуск насоса
                 setTimeout(function () {
                     $('#spPump').hide()
                     $('#pPump').removeClass('text-body');
@@ -144,17 +144,17 @@ function valveOpen(contr) {
                     // $('#pSystem').removeClass('text-secondary')
                     // $('#pSystem').addClass('text-body')
                     $('.progress-bar').css('width', '100%');
-                }, 4000);
+                }, 10000);
 
                 setTimeout(function () {
                     $('#startProgr').css('display', 'none');
                     $('#modCam').modal("hide")
                     sinRele(vallRun, 14, 1)
                     reqRele('btn' + valleyNumber + '_7-9')
-                }, 6000);
+                }, 16000);
                 setTimeout(function () {
                     toastInit('bg-success', 'Система запущена с подачей воды');
-                }, 7000)
+                }, 17000)
             }
         }, 1000)
     lauInp = 0
@@ -186,6 +186,7 @@ function startInit(cntr) {
     let imgSrc = $('#cam_pump').attr('src');
     imgSrc = imgSrc.replace("sub", "main")
     $('#modBody').css("background-image", "url(" + imgSrc + ")")
+    $('#fullCtrl').modal("hide");
     $('#modCam').modal("show")
     valveOpen(cntr)
 };
@@ -238,6 +239,14 @@ function lauRele(contr, rele, status) {
     })
 }
 
+function vallRele(contr, rele, status) {
+    let url = '/valrele/?contr=' + contr + '&rele=' + rele + '&status=' + status
+    $.ajax( {
+        url: url,
+        type: 'GET'
+    })
+}
+
 //Блокировка кнопок
 function btnDisable(all= false, btn= 0) {
     if (all == false) {
@@ -252,6 +261,7 @@ function btnDisable(all= false, btn= 0) {
         $('#btn' + btn + '_8-11').prop("disabled", true);
         $('#btn' + btn + '_7-12').prop("disabled", true);
         $('#btn' + btn + '_8-12').prop("disabled", true);
+        $('#btn' + btn + '_pro2').prop("disabled", true);
     }
 }
 
@@ -269,6 +279,7 @@ function btnEnable(all = false, btn = 0) {
         $('#btn' + btn + '_8-11').prop("disabled", false);
         $('#btn' + btn + '_7-12').prop("disabled", false);
         $('#btn' + btn + '_8-12').prop("disabled", false);
+        $('#btn' + btn + '_pro2').prop("disabled", false);
     }
 }
 
@@ -312,6 +323,26 @@ function miniJournal() {
         data: journFilter,
         success: function (data) {
             $('#minijourn').html(data)
+        }
+    })
+}
+
+function vallState() {
+    let currState = $('#card1').text()
+    $.ajax({
+        url: '/onoff/?contr=' + currState,
+        success: function (data) {
+            if (data == 0) {
+                on_off = 0
+                btnDisable(true, currState)
+                $('#btn' + currState + '_p2').removeClass('bg-success')
+                $('#btn' + currState + '_p2').addClass('bg-danger')
+            }
+            else {
+                on_off = 1
+                $('#btn' + currState + '_p2').removeClass('bg-danger')
+                $('#btn' + currState + '_p2').addClass('bg-success')
+            }
         }
     })
 }

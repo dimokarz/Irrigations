@@ -1,3 +1,6 @@
+import asyncio
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -22,11 +25,11 @@ def index(request):
 
 @login_required
 def simple(request):
-    btnLst = ControlSimple().engButtons
-    btnCol1 = ControlFull().engButtons1
-    btnCol2 = ControlFull().engButtons2
-    btnCol3 = ControlFull().engButtons3
-    btnCol4 = ControlFull().engButtons4
+    btnLst = ControlSimple().rusButtons
+    btnCol1 = ControlFull().rusButtons1
+    btnCol2 = ControlFull().rusButtons2
+    btnCol3 = ControlFull().rusButtons3
+    btnCol4 = ControlFull().rusButtons4
     first = int(request.GET.get('first')[5:])
     if request.GET.get('second') is not None:
         second = request.GET.get('second')[5:]
@@ -44,9 +47,10 @@ def simple(request):
             cam = ''
         journal = Journal.objects.all().filter(journal_valley=first).order_by('-journal_date')[:7]
     title = ' - Управление'
-    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst,'ptz': cam.ptz,
+    return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst, 'ptz': cam.ptz,
                                            'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'journal': journal,
-                                           'btnCol1': btnCol1, 'btnCol2': btnCol2, 'btnCol3': btnCol3,  'btnCol4': btnCol4})
+                                           'btnCol1': btnCol1, 'btnCol2': btnCol2, 'btnCol3': btnCol3,
+                                           'btnCol4': btnCol4})
 
 
 @login_required
@@ -109,6 +113,17 @@ def laurele(request):
     addr = Pump.objects.get(id=contr.valley_pump_id).pump_addr
     rele = contr.valley_rele
     stat = request.GET.get('status')
+    return HttpResponse(lauRele(addr, rele, stat))
+
+
+def valrele(request):
+    contr = request.GET.get('contr')
+    rele = request.GET.get('rele')
+    stat = request.GET.get('status')
+    if contr == '5':
+        addr = '192.168.1.151'
+    elif contr == '6':
+        addr = '192.168.1.109'
     return HttpResponse(lauRele(addr, rele, stat))
 
 
@@ -186,3 +201,21 @@ def listenin(request):
     elif int(valStat) == 0:
         pin1Rele(contrAddr, 44, 0)  # !!!!!
     return HttpResponse(contrAddr + ' ' + str(contr) + ' ' + str(valStat))
+
+
+# async def stimer(request):
+#     await asyncio.sleep(5)
+#     return HttpResponse('Ебеньк')
+
+
+def onoff(request):
+    contr = request.GET.get('contr')
+    if int(contr) == 5:
+        contrAddr = 'http://192.168.1.151/json_sensor.cgi?psw=Laurent'
+    elif int(contr) == 6:
+        contrAddr = 'http://192.168.1.109/json_sensor.cgi?psw=Laurent'
+
+    jData = requests.get(contrAddr, verify=False)
+    inputs = json.loads(jData.text)
+    valState = inputs['rele'][0]
+    return HttpResponse(valState)

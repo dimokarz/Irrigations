@@ -1,7 +1,6 @@
 // https://192.168.1.220:18083/ptz?command=open&channel=hNbJnraI&sid=LXq049D0
-$('.btn').mousedown(function(e) {
+$('.btn_arr').mousedown(function(e) {
     let url = '';
-    click_id=e.target.id;
     switch(click_id) {
         case 'arr_ul':
             ptzUrl = ptzUrl.replace('XXX', '-3')
