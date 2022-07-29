@@ -383,7 +383,33 @@ function norm(cntr, val, per=true) {
 //Детали минижурнала
 $("#mjournal").on("click", "tr", function (row, $el, field) {
     let tr = $(this).closest('tr');
-    let col1=tr.find("td:eq(3)").html()
-    $('#mjdDate').text("1234566");
-    $('#mjDetail').modal("show");
+    let mjTitle = tr.find("td:eq(1)").html().slice(6) + ' - ' + tr.find("td:eq(0)").html().slice(6)
+    let dir=tr.find("td:eq(5)").html()
+    let wat = tr.find("td:eq(6)").html()
+    let sis = tr.find("td:eq(7)").html()
+
+    switch (dir) {
+        case 'F':
+            dir = 'Вперёд'
+            break
+        case 'R':
+            dir = 'Назад'
+            break
+        default:
+            dir = 'N'
+            break
+    }
+
+    if (wat == 'True') { wat = 'Включена'} else { wat = 'Отключена' }
+
+    if (sis == 'True') { sis = 'Включен'} else { sis = 'Отключен' }
+
+    $('#mjdTitle').text(mjTitle)
+    $('#mjdUser').text(tr.find("td:eq(4)").html())
+    $('#mjdDir').text(dir)
+    $('#mjdWat').text(wat)
+    $('#mjdSis').text(sis)
+    $('#mjdPerc').text(tr.find("td:eq(8)").html() + '%')
+    $('#mjdDep').text(tr.find("td:eq(9)").html() + 'mm')
+    if (dir != 'N') { $('#mjDetail').modal("show") }
 });

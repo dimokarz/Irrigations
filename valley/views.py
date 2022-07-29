@@ -141,8 +141,8 @@ def minijourn(request):
 
 def currec(request):
     curr = request.GET.get('curr')
-    detail = Journal.objects.all().filter(journal_valley_id=int(curr))
-    return HttpResponse(detail)
+    detail = Journal.objects.get(id=curr)
+    return render(request, 'detail.html', {'detail': detail})
 
 
 def journlst(request):

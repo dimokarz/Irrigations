@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'valley',
-    'surveillance'
+    'surveillance',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

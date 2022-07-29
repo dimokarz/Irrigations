@@ -106,8 +106,8 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-6"><p class="led-sm" id="percSm">---</p></div>
-                                        <div class="col-6"><p class="led-sm" id="depSm">---</p></div>
+                                        <div class="col-6"><p class="led-sm" id="percSm{{ valley.status_valley_id }}">{{ valley.status_perc }}%</p></div>
+                                        <div class="col-6"><p class="led-sm" id="depSm{{ valley.status_valley_id }}">{{ valley.status_depth }}mm</p></div>
                                     </div>
                                     <hr style="margin-top: -10px;">
                                     <div class="row">
@@ -120,8 +120,8 @@
                                                     class="btn btn_squar btn-primary bi bi-calculator"></button>
                                         </div>
                                         <div class="col-4">
-{#                                            <button type="button" id="btn_cam{{i}}"#}
-{#                                                    class="btn btn_squar btn-primary bi bi-camera-reels"></button>#}
+                                            <button type="button" id="btn_map{{i}}"
+                                                    class="btn btn_squar btn-primary bi bi-map"></button>
 
                                         </div>
                                     </div>

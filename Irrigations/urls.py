@@ -38,6 +38,7 @@ urlpatterns = [
     path('journal/', valley.views.journal),
     path('journlst/', valley.views.journlst),
     path('journfilt/', valley.views.journfilt),
+    path('currec/', valley.views.currec),
     path('test/', valley.views.test),
     path('lauin/', valley.views.lauin),
     path('listenin/', valley.views.listenin),

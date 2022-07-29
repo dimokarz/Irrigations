@@ -221,12 +221,35 @@
 <div class="modal fade" id="mjDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Valley PRO2</h5>
+      <div class="modal-header" style="background: #e6e6e6;">
+        <h5 class="modal-title" id="mjdTitle"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
       <div class="modal-body">
-          <p id="mjdDate"></p>
+          <div class="row border-bottom">
+              <div class="col-3"><strong>Пользователь:</strong></div>
+              <div class="col-3"><p  class="text-start" id="mjdUser"></p></div>
+          </div>
+          <div class="row border-bottom" style="margin-top: 17px;">
+              <div class="col-3"><strong>Направление:</strong></div>
+              <div class="col-3"><p class="text-start" id="mjdDir"></p></div>
+          </div>
+          <div class="row border-bottom" style="margin-top: 17px;">
+              <div class="col-3"><strong>Вода:</strong></div>
+              <div class="col-3"><p class="text-start" id="mjdWat"></p></div>
+          </div>
+          <div class="row border-bottom" style="margin-top: 17px;">
+              <div class="col-3"><strong>Автостоп:</strong></div>
+              <div class="col-3"><p class="text-start" id="mjdSis"></p></div>
+          </div>
+          <div class="row border-bottom" style="margin-top: 17px;">
+              <div class="col-3"><strong>Скорость:</strong></div>
+              <div class="col-3"><p class="text-start" id="mjdPerc"></p></div>
+          </div>
+          <div class="row" style="margin-top: 17px;">
+              <div class="col-3"><strong>Пролив:</strong></div>
+              <div class="col-3"><p class="text-start" id="mjdDep"></p></div>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>

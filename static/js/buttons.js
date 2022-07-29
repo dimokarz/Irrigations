@@ -167,6 +167,8 @@ $('.btn').on('click', function(e) {
         //Полная панель
         case 'btn' + valleyNumber + '_pro2':
             let currCtrl = $('#vallName' + valleyNumber).text();
+            let currPerc = $('#percSm' + valleyNumber).text()
+            let currDep = $('#depSm' + valleyNumber).text()
             $('#currVall').text(currCtrl);
             //Добавление id кнопкам полной панели
             $('button.bfp').each(function() {
@@ -340,7 +342,7 @@ $('.btn_arr').mousedown(function(e) {
         // case 'arr_zout':
         //     url_ptz = url_ptz + 'zoom&speed=-1&sid=' + sid_ptz;
         //     break;
-    };
+    }
     $.ajax({
         url: ptzUrl,
         type: 'POST',
