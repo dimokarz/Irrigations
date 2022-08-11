@@ -228,7 +228,7 @@ function sinRele(contr, rele, status) {
 
 //Lauran Rele
 function lauRele(contr, rele, status) {
-    if (contr == 5){ rele = 1} else { if (contr == 6) { rele = 2}}
+    // if (contr == 5){ rele = 1} else { if (contr == 6) { rele = 2}}
     let url = '/laurele/?contr=' + contr + '&rele=' + rele + '&status=' + status // !!!!!
     $.ajax({
         url: url,
@@ -317,7 +317,7 @@ function readPins(contr, pin) {
 
 //Минижурнал
 function miniJournal() {
-    let journFilter = {'first': $('#card1').text(), 'second': $('#card2').text()}
+    let journFilter = {'first': $('#card1').text(), 'second': ''} //, 'second': $('#card2').text()
     $.ajax({
         url: '/minijourn',
         data: journFilter,
@@ -327,6 +327,7 @@ function miniJournal() {
     })
 }
 
+//Вкл\Выкл
 function vallState() {
     let currState = $('#card1').text()
     $.ajax({
@@ -413,3 +414,30 @@ $("#mjournal").on("click", "tr", function (row, $el, field) {
     $('#mjdDep').text(tr.find("td:eq(9)").html() + 'mm')
     if (dir != 'N') { $('#mjDetail').modal("show") }
 });
+
+//Время до конца полива
+function deltaTime(contr) {
+    let timeNow = new Date();
+    let timeStart = new Date($('#tStart' + contr).text())
+    let deltaTime = (timeNow - timeStart)/3600000
+    deltaTime = deltaTime.toFixed(1)
+    let stopTime
+    let result = ''
+    switch (contr) {
+        case '5':
+            stopTime = 990 / parseFloat($('#percSm5').text().slice(0, -1))
+            break;
+        case '6':
+            stopTime = 1100 / parseFloat($('#percSm6').text().slice(0, -1))
+            break;
+    }
+        if ($('#dirInd' + contr).text() == '---') {
+            result = 'Система не запущена'
+        }
+        else {
+            stopTime = stopTime - deltaTime
+            stopTime.toFixed(1)
+            result = 'Время до остановки - ' + stopTime.toString() + ' ч.'
+        }
+    return result
+}

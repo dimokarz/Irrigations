@@ -29,6 +29,8 @@
                         <div class="card-body">
                         <p id="card{{ forloop.counter }}" style="display: none">{{ valley.status_valley_id }}</p>
                         <p id="ptz{{ forloop.counter }}" style="display: none">{{ ptz.0 }}</p>
+                        <p id="tStart{{ valley.status_valley_id }}" style="display: none">
+                            {{ valley.status_start|date:"Y-m-d H:i:s" }}</p>
 {#                        <p  id = "pSid" style="display: none">{{ pSids.0 }}</p>#}
                             <div class="row">
                                 <div class="col-6">
@@ -120,7 +122,7 @@
                                                     class="btn btn_squar btn-primary bi bi-calculator"></button>
                                         </div>
                                         <div class="col-4">
-                                            <button type="button" id="btn_map{{i}}"
+                                            <button type="button" id="btn{{ valley.status_valley_id }}_map"
                                                     class="btn btn_squar btn-primary bi bi-map"></button>
 
                                         </div>

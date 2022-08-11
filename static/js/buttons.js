@@ -36,7 +36,7 @@ $('.btn').on('click', function(e) {
                     }
                     else {
                         if (valleyNumber == 6) {
-                            lauRele(valleyNumber, 1, 1)
+                            lauRele(valleyNumber, 2, 1)
                         }
                     }
                     startInit(valleyNumber)
@@ -78,6 +78,14 @@ $('.btn').on('click', function(e) {
                 // sinRele(valleyNumber, 14, 0)
                 // sinRele(valleyNumber, 15, 0)
                 vallRele(valleyNumber, 2, 0)
+                lauRele(valleyNumber, 1, 0)
+                lauRele(valleyNumber, 3, 0)
+                lauRele(valleyNumber, 4, 0)
+            }, 2000);
+            setTimeout(function () {
+                // sinRele(valleyNumber, 14, 0)
+                // sinRele(valleyNumber, 15, 0)
+                vallRele(valleyNumber, 2, 0)
                 if (valleyNumber == 5) {
                     lauRele(valleyNumber, 1, 0)
                 }
@@ -86,7 +94,10 @@ $('.btn').on('click', function(e) {
                         lauRele(valleyNumber, 2, 0)
                     }
                 }
-            }, 2000);
+            }, 4000);
+            setTimeout(function () {
+                lauRele(valleyNumber, 4, 0)
+            }, 4000)
             dataSave()
             // miniJournal()
             indEdit('All', 'bg-success', 'bg-danger')
@@ -159,6 +170,8 @@ $('.btn').on('click', function(e) {
             // sinRele(vallRun, 15, 0)
             lauRele(vallRun, 1, 0)
             lauRele(vallRun, 2, 0)
+            lauRele(vallRun, 3, 0)
+            lauRele(vallRun, 4, 0)
             vallRele(vallRun, 2, 0)
             $('#startProgr').css('display', 'none');
             $('#modCam').modal("hide")
@@ -179,6 +192,35 @@ $('.btn').on('click', function(e) {
             });
             // $('#paramEd').text('---');
             $('#fullCtrl').modal("show");
+            break;
+        //Карта
+        case 'btn' + valleyNumber + '_map':
+            let mapName = 'empty.png'
+            let dir = $('#dirInd' + valleyNumber).text()
+            let mTitle = $('#vallName' + valleyNumber).text()
+            $('#tMap').text(mTitle)
+            switch (valleyNumber) {
+                case '5':
+                    if (dir == '---') {
+                        mapName = 'ns-1.png'
+                    }
+                    else {
+                        if (dir == 'Вперёд') {
+                            mapName = 'ns-1-f.png'
+                        }
+                        else {
+                            mapName = 'ns-1-r.png'
+                        }
+                    }
+                    break;
+                case '6':
+                    mapName = 'ns-2.png'
+                    break;
+            }
+            let imgSrc = '/static/img/' + mapName
+            $('#modMap').css("background-image", "url(" + imgSrc + ")")
+            $('#hStop').text(deltaTime(valleyNumber))
+            $('#mMap').modal("show")
             break;
         //0-9.
         case 'btn' + valleyNumber + '_2-9':
@@ -244,9 +286,9 @@ $('.btn').on('click', function(e) {
                 valStatus.perc = currVar.value
                 valStatus.dep = values[1]
                 $('#percEd').text(currVar.name + currVar.value + '%');
-                $('#percSm').text(currVar.value + '%');
+                $('#percSm' + valleyNumber).text(currVar.value + '%');
                 $('#depEd').text('Глубина: ' + values[1] + 'mm')
-                $('#depSm').text(values[1] + 'mm')
+                $('#depSm' + valleyNumber).text(values[1] + 'mm')
             }
             // else {
             //     $('#mal1').text('Введите значение' );

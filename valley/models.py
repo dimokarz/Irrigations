@@ -54,6 +54,7 @@ class Status(models.Model):
     status_valve2 = models.BooleanField(default=False, verbose_name='Задвижка 2')
     status_perc = models.FloatField(default=False, verbose_name='Скорость')
     status_depth = models.FloatField(default=False, verbose_name='Глубина')
+    status_start = models.DateTimeField(verbose_name='Время запуска')
 
 
 class Journal(models.Model):

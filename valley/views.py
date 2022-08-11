@@ -1,6 +1,6 @@
 import asyncio
 import json
-
+import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -70,7 +70,8 @@ def statussave(request):
                       status_dir=request.GET.get('dir'), status_wat=request.GET.get('wat'),
                       status_sis=request.GET.get('sis'), status_valve1=request.GET.get('valve1'),
                       status_valve2=request.GET.get('valve2'), status_fail=request.GET.get('fail'),
-                      status_perc=request.GET.get('perc'), status_depth=request.GET.get('dep'))
+                      status_perc=request.GET.get('perc'), status_depth=request.GET.get('dep'),
+                      status_start=datetime.datetime.now())
     currData.save()
     if request.GET.get('run') == 'False':
         act = 'S'
@@ -113,10 +114,9 @@ def readpin(request):
 def laurele(request):
     contr = Valley.objects.get(id=request.GET.get('contr'))
     addr = Pump.objects.get(id=contr.valley_pump_id).pump_addr
-    rele = contr.valley_rele
+    rele = request.GET.get('rele')
     stat = request.GET.get('status')
     return HttpResponse(lauRele(addr, rele, stat))
-
 
 def valrele(request):
     contr = request.GET.get('contr')
