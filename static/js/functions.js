@@ -116,10 +116,13 @@ function valveOpen(contr) {
                 $('#pValve').text('Задвижки открыты');
                 $('#spPump').show()
                 $('#pPump').removeClass('text-secondary')
+                $('#pPump').removeClass('text-muted');
+                $('#pPump').removeClass('text-body');
                 $('#pPump').addClass('text-body')
                 indEdit('valve1','bg-danger', 'bg-success')
                 indEdit('valve2','bg-danger', 'bg-success')
                 $('.progress-bar').css('width', '75%');
+
    // Запуск насоса
                 setTimeout(function () {
                     $('#spPump').hide()
@@ -129,6 +132,7 @@ function valveOpen(contr) {
                     indEdit('dirInd', 'bg-danger', 'bg-success')
                     $('#spSystem').show()
                     $('#pSystem').removeClass('text-secondary')
+                    $('#pSystem').removeClass('text-muted')
                     $('#pSystem').addClass('text-body')
                     $('.progress-bar').css('width', '75%')
                 }, 2000);
@@ -144,17 +148,17 @@ function valveOpen(contr) {
                     // $('#pSystem').removeClass('text-secondary')
                     // $('#pSystem').addClass('text-body')
                     $('.progress-bar').css('width', '100%');
-                }, 10000);
+                }, 8000);
 
                 setTimeout(function () {
                     $('#startProgr').css('display', 'none');
                     $('#modCam').modal("hide")
                     sinRele(vallRun, 14, 1)
                     reqRele('btn' + valleyNumber + '_7-9')
-                }, 16000);
+                }, 10000);
                 setTimeout(function () {
                     toastInit('bg-success', 'Система запущена с подачей воды');
-                }, 17000)
+                }, 12000)
             }
         }, 1000)
     lauInp = 0

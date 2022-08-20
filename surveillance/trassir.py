@@ -26,8 +26,10 @@ class VideoUrl:
         sid = ''
         for row in urls:
             urlCan = urlparse(row).path[1:]
+            urlPort = urlparse(row).port
             urlHost = urlparse(row).hostname
-            if urlCan == 1557:
+
+            if urlPort == 1557:
                 urlPort = 18082
             else:
                 urlPort = 18083
@@ -42,6 +44,20 @@ class VideoUrl:
             ptz.append(ptzPath)
         return ptz
 
+    def _ptz_pump(self):
+        sid = ''
+        urlHost = '192.168.1.100:18082'
+        ptzPath = 'https://192.168.1.100:18082/login?password=12345'
+        jData = requests.get(ptzPath, verify=False)
+        sid = json.loads(jData.text)
+        sid = sid['sid']
+        ptzPath = 'https://{}/ptz?command=open&channel={}&sid={}'.format(urlHost, 'bw1VN7ee', sid)
+        jData = requests.get(ptzPath, verify=False)
+        print(jData.text)
+        ptzPath = 'https://192.168.1.100:18082/ptz?command=turn&speed_x=XXX&speed_y=YYY&sid=' + sid
+        return ptzPath
+
+
     @property
     def valleySub(self):
         return self._valleyCam()
@@ -53,6 +69,10 @@ class VideoUrl:
     @property
     def ptz(self):
         return self._ptz()
+
+    @property
+    def ptz_pump(self):
+        return self._ptz_pump()
 
 # https://192.168.1.200:8080/ptz?command=open&channel=FByNlKIq&sid=fjMlBJ0I
 # https://192.168.1.200:8080/ptz?command=turn&speed_x=1&speed_y=-1&sid=fjMlBJ0I

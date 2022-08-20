@@ -12,6 +12,7 @@ from .control import ControlSimple, ControlFull
 from .arduino import *
 from surveillance.trassir import *
 from .laurent import *
+from .telegram import telegram
 
 
 @login_required
@@ -50,7 +51,7 @@ def simple(request):
     return render(request, 'simple.html', {'title': title, 'valleyLst': valleyLst, 'btnLst': btnLst, 'ptz': cam.ptz,
                                            'pCam': cam.pumpSub, 'vCam': cam.valleySub, 'journal': journal,
                                            'btnCol1': btnCol1, 'btnCol2': btnCol2, 'btnCol3': btnCol3,
-                                           'btnCol4': btnCol4})
+                                           'btnCol4': btnCol4, 'ptz_pump': cam.ptz_pump})
 
 
 @login_required
@@ -112,8 +113,9 @@ def readpin(request):
 
 
 def laurele(request):
-    contr = Valley.objects.get(id=request.GET.get('contr'))
-    addr = Pump.objects.get(id=contr.valley_pump_id).pump_addr
+    # contr = Valley.objects.get(id=int(request.GET.get('contr')))
+    # addr = Pump.objects.get(id=contr.valley_pump_id).pump_addr
+    addr = '192.168.1.107'
     rele = request.GET.get('rele')
     stat = request.GET.get('status')
     return HttpResponse(lauRele(addr, rele, stat))
@@ -176,9 +178,11 @@ def lauin(request):
     lauXml = urlopen(str_url)
     xmldoc = parse(lauXml)
     inputs = xmldoc.findtext('in')
+    valName = ''
     if int(contr) == 6:
         valv1 = inputs[0]  # !!!!!
         str_url = 'http://192.168.1.109/json_sensor.cgi?psw=Laurent'  # !!!!!
+        valName = 'Новосёлки 2'
     elif int(contr) == 5:
         valv1 = inputs[0]  # !!!!!
         str_url = 'http://192.168.1.151/json_sensor.cgi?psw=Laurent'  # !!!!!
@@ -218,9 +222,9 @@ def listenin(request):
 
 def onoff(request):
     contr = request.GET.get('contr')
-    if int(contr) == 5:
+    if int(contr) == '5':
         contrAddr = 'http://192.168.1.151/json_sensor.cgi?psw=Laurent'
-    elif int(contr) == 6:
+    elif int(contr) == '6':
         contrAddr = 'http://192.168.1.109/json_sensor.cgi?psw=Laurent'
 
     jData = requests.get(contrAddr, verify=False)

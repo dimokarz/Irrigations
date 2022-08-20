@@ -5,8 +5,9 @@ let lauInp
 let vallRun = 0
 let camId = ''
 let ptzUrl = ''
+let currCam = ''
 let currVal = 0
-let currVar = {'name': '', 'value': '', 'digit': 0}
+let currVar = {'name': '', 'value': '', 'time': '', 'digit': 0}
 let currId = ''
 let perc = true
 

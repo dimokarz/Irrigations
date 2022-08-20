@@ -333,7 +333,14 @@ $('.btn').on('click', function(e) {
 $('.img_fit').on('click', function(e) {
     camId = e.target.id
     let imgSrc = $('#' + camId).attr('src');
-    ptzUrl = $('#ptz1').text()
+    if (camId == 'cam_pump'){
+        ptzUrl = $('#ptz_pump').text()
+        currCam
+    }
+    else{
+        ptzUrl = $('#ptz1').text()
+    }
+    currCam = ptzUrl
     imgSrc = imgSrc.replace("sub", "main")
     // $('#full').attr('src', imgSrc)
     $('#modBody').css("background-image", "url(" + imgSrc + ")")
@@ -342,7 +349,7 @@ $('.img_fit').on('click', function(e) {
 });
 
 
-//PTZ кнопка нажать кнопку
+//PTZ нажать кнопку
 $('.btn_arr').mousedown(function(e) {
     let url = '';
     switch(e.target.id) {
@@ -378,12 +385,14 @@ $('.btn_arr').mousedown(function(e) {
             ptzUrl = ptzUrl.replace('XXX', '3')
             ptzUrl = ptzUrl.replace('YYY', '-3')
             break;
-        // case 'arr_zin':
-        //     url_ptz = url_ptz + 'zoom&speed=1&sid=' + sid_ptz;
-        //     break;
-        // case 'arr_zout':
-        //     url_ptz = url_ptz + 'zoom&speed=-1&sid=' + sid_ptz;
-        //     break;
+        case 'arr_zin':
+            urlZoom = ptzUrl.slice(0, 28)  + 'ptz?command=zoom&speed=1&sid=' + ptzUrl.slice(73, 81)
+            ptzUrl = urlZoom
+            break;
+        case 'arr_zout':
+            urlZoom = ptzUrl.slice(0, 28)  + 'ptz?command=zoom&speed=-1&sid=' + ptzUrl.slice(73, 81)
+            ptzUrl = urlZoom
+            break;
     }
     $.ajax({
         url: ptzUrl,
@@ -395,7 +404,7 @@ $('.btn_arr').mousedown(function(e) {
 });
 
 
-//PTZ кнопка отпустить кнопку
+//PTZ отпустить кнопку
 $('.btn_arr').mouseup(function(){
     let canSid = ptzUrl.slice(-8)
     let urlStop = ptzUrl.slice(0,40) + 'stop&sid=' + canSid
@@ -406,5 +415,5 @@ $('.btn_arr').mouseup(function(){
             console.log(error);
         }
     });
-    ptzUrl = $('#ptz1').text()
+    ptzUrl = currCam
 });
